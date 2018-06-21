@@ -1,0 +1,16 @@
+<table>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Start time</th>
+      <th>End time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let offer of offers">
+      <td [ngClass]="{'activeOffer': offer.active}"><a [routerLink]="['/offers', offer.id ]">{{ offer.offerCode }}</a></td>
+      <td>{{ offer.startTime * 1000 | date:'yyyy-MM-dd HH:mm' }}</td>
+      <td>{{ offer.endTime * 1000 | date:'yyyy-MM-dd HH:mm' }}</td>
+    </tr>
+  </tbody>
+</table>
