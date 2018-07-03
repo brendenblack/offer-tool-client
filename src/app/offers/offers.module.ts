@@ -5,11 +5,13 @@ import { OffersRoutingModule } from './offers-routing.module';
 import { OffersListComponent } from './offers-page/offers-list/offers-list.component';
 import { OfferService } from '../core/services';
 import { OfferDetailsPageComponent } from './offer-details-page/offer-details-page.component';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 @NgModule({
   imports: [
     CommonModule,
-    OffersRoutingModule
+    OffersRoutingModule,
+    Ng2SmartTableModule
   ],
   declarations: [OffersPageComponent, OffersListComponent, OfferDetailsPageComponent],
   providers: [ OfferService ]

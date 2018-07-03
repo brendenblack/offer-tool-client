@@ -1,7 +1,12 @@
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Code</th>
+      <th>Title</th>
+      <th class="text-right">Cohort</th>
+      <th class="text-right">Purchased</th>
+      <th class="text-right">Cost</th>
+      <th class="text-right">~ Revenue</th>
       <th>Start time</th>
       <th>End time</th>
     </tr>
@@ -9,6 +14,11 @@
   <tbody>
     <tr *ngFor="let offer of offers">
       <td [ngClass]="{'activeOffer': offer.active}"><a [routerLink]="['/offers', offer.id ]">{{ offer.offerCode }}</a></td>
+      <td>{{ offer.title }}</td>
+      <td class="text-right">{{ offer.cohortSize }}</td>
+      <td class="text-right">{{ offer.uniquePurchased }}</td>
+      <td class="text-right">{{ offer.cost }}</td>
+      <td class="text-right">{{ offer.approximateRevenue | currency:'CAD' }}</td>
       <td>{{ offer.startTime * 1000 | date:'yyyy-MM-dd HH:mm' }}</td>
       <td>{{ offer.endTime * 1000 | date:'yyyy-MM-dd HH:mm' }}</td>
     </tr>
