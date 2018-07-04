@@ -1,0 +1,15 @@
+<h2>Clone offers</h2>
+<div class="btn-group" role="group" aria-label="Offer clone commands">
+        <button type="button" class="btn btn-primary"><i class="fas fa-database"></i> Generate SQL</button>
+        <button type="button" class="btn btn-disabled">Insert to SB2</button>
+</div>
+
+<ul>
+    <li *ngFor="let offer of offers" class="list-unstyled clones">
+        <div class="text-center">
+            <p>{{ offer.offerCode }}</p>
+            <p class="text-muted">as</p>
+            <input maxlength="20"/>
+        </div>
+    </li>
+</ul>

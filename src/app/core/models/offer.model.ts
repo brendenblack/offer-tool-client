@@ -1,5 +1,4 @@
-export class Offer
-{
+export class Offer {
     offerCode: String;
     title: String;
     startTime: number;
