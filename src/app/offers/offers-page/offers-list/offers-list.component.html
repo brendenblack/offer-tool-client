@@ -17,12 +17,17 @@
         <div class="input-group-prepend">
         <span class="input-group-text">Display mode</span>
       </div> -->
+
+      <form class="form-inline">
       <p>Display mode
         <span class="btn-group" role="group" aria-label="Display modes">
-            <button type="button" class="btn" (click)="setDisplayMode('box')" [ngClass]="{ 'btn-success': displayMode == 'box' }" aria-pressed="false"><i class="fas fa-th"></i></button>
-            <button type="button" class="btn" (click)="setDisplayMode('table')" [ngClass]="{ 'btn-success': displayMode == 'table' }"><i class="fas fa-bars"></i></button>
+            <button type="button" class="btn" (click)="setDisplayMode('box')" [ngClass]="{ 'btn-success': displayMode == 'box' }" data-toggle="tooltip" data-placement="top" title="Grid view"><i class="fas fa-th"></i></button>
+            <button type="button" class="btn" (click)="setDisplayMode('table')" [ngClass]="{ 'btn-success': displayMode == 'table' }" data-toggle="tooltip" data-placement="top" title="List view"><i class="fas fa-bars"></i></button>
         </span>
       </p>
+
+      <input type="text" class="form-control" placeholder="Search ..." [(ngModel)]="filterString" name="filterString" (input)="filterOffers()" />
+    </form>
 </div>
 
 <div [ngSwitch]="displayMode">

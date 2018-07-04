@@ -31,8 +31,9 @@ export class OffersListComponent implements OnInit {
   private startDate: number;
   private endDate: number;
   private onlyActive = false;
-  private displayMode: String = 'table';
+  private displayMode: String = 'box';
   selectedOffers: Offer[] = [];
+  private filterString: String;
   @Output() selected = new EventEmitter<Offer>();
 
 
@@ -61,7 +62,15 @@ export class OffersListComponent implements OnInit {
   }
 
   filterOffers() {
+    // filter by date
     this.offers = this.allOffers.filter(offer => offer.startTime >= this.startDate && offer.endTime <= this.endDate);
+    if (this.filterString != null && this.filterString != undefined && this.filterString != "") {
+      this.offers = this.offers.filter(o => 
+        o.offerCode.toUpperCase().indexOf(this.filterString.toUpperCase()) >= 0 );
+      //|| o.title.toUpperCase().indexOf(this.filterString.toUpperCase()) > 0);
+    }
+
+
   }
 
   updateCloneList(offer: Offer) {

@@ -8,13 +8,15 @@ import { OfferDetailsPageComponent } from './offer-details-page/offer-details-pa
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CloneOffersComponent } from './offers-page/clone-offers/clone-offers.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     OffersRoutingModule,
     Ng2SmartTableModule,
-    NgbModule
+    NgbModule,
+    FormsModule
   ],
   declarations: [
     OffersPageComponent,

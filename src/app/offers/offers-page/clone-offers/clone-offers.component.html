@@ -4,12 +4,20 @@
         <button type="button" class="btn btn-disabled">Insert to SB2</button>
 </div>
 
-<ul>
-    <li *ngFor="let offer of offers" class="list-unstyled clones">
-        <div class="text-center">
-            <p>{{ offer.offerCode }}</p>
-            <p class="text-muted">as</p>
-            <input maxlength="20"/>
+<ul class="list-unstyled m-0 p-0 clones">
+    <li *ngFor="let offer of offers">
+        <div class="form-group">
+            <label><span class="font-weight-bold">{{ offer.offerCode }}</span>&nbsp;<span class="text-muted">as</span></label>
+            <input type="text" class="form-control" maxlength="20"/>
         </div>
     </li>
 </ul>
+
+<div>
+    <div *ngFor="let offer of offers" class="form-group row">
+        <label class="col-sm-12 col-md-6 col-form-label"><span class="font-weight-bold">{{ offer.offerCode }}</span>&nbsp;<span class="text-muted">as</span></label>
+        <div class="col-sm-8 col-md-6">
+            <input type="text" class="form-control" maxlength="20"/>
+        </div>
+    </div>
+</div>
