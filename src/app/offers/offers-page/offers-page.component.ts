@@ -9,7 +9,11 @@ export class OffersPageComponent {
 
   constructor() { }
 
-  private selectedOffers: Offer[] = [];
+  private _selectedOffers: Offer[] = [];
+
+  get selectedOffers(): Offer[] {
+    return this._selectedOffers;
+  }
 
   onSelection(offer: Offer) {
     const index = this.selectedOffers.findIndex(o => o === offer);
@@ -17,4 +21,13 @@ export class OffersPageComponent {
       this.selectedOffers.push(offer);
     }
   }
+
+  onClearSelection(offer: Offer) {
+    this._selectedOffers = this.selectedOffers.filter(o => o !== offer);
+  }
+
+  onClearAll() {
+    this._selectedOffers = [];
+  }
+
 }

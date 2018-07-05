@@ -1,5 +1,6 @@
-
-<div class="row mx-1">
+<section id="offers-list-section" class="border">
+<div class="row" style="margin: auto;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom w-100">
     <!-- <ngb-datepicker #dp (select)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t">
       </ngb-datepicker>
       
@@ -18,30 +19,48 @@
         <span class="input-group-text">Display mode</span>
       </div> -->
 
-      <form class="form-inline">
-      <p>Display mode
+
+
+        <span class="navbar-text mr-2">Display mode</span>
         <span class="btn-group" role="group" aria-label="Display modes">
             <button type="button" class="btn" (click)="setDisplayMode('box')" [ngClass]="{ 'btn-success': displayMode == 'box' }" data-toggle="tooltip" data-placement="top" title="Grid view"><i class="fas fa-th"></i></button>
             <button type="button" class="btn" (click)="setDisplayMode('table')" [ngClass]="{ 'btn-success': displayMode == 'table' }" data-toggle="tooltip" data-placement="top" title="List view"><i class="fas fa-bars"></i></button>
         </span>
-      </p>
 
-      <input type="text" class="form-control" placeholder="Search ..." [(ngModel)]="filterString" name="filterString" (input)="filterOffers()" />
-    </form>
+
+
+        <input type="text" class="form-control" placeholder="Search ..." [(ngModel)]="filterString" name="filterString" (input)="filterOffers()" />
+
+
+        <span class="navbar-text mr-2">Sort by</span>
+        <select class="form-control form-control" [(ngModel)]="sortBy" (change)="filterOffers()">
+          <option *ngFor="let opt of orderByFields">{{ opt }}</option>
+        </select>
+
+        <span class="btn-group" role="group" aria-label="Display modes">
+            <button type="button" class="btn" (click)="setSortDirection('ascending')" [ngClass]="{ 'btn-success': sortDirection == 'ascending' }" data-toggle="tooltip" data-placement="top" title="Grid view"><i class="fas fa-sort-amount-up"></i></button>
+            <button type="button" class="btn" (click)="setSortDirection('descending')" [ngClass]="{ 'btn-success': sortDirection == 'descending' }" data-toggle="tooltip" data-placement="top" title="List view"><i class="fas fa-sort-amount-down"></i></button>
+        </span>
+
+
+    </nav>
 </div>
 
 <div [ngSwitch]="displayMode">
   <div *ngSwitchCase="'table'">
-    <table class="table">
+    <table class="table table-sm">
       <thead>
         <tr>
           <th>Code</th>
           <th>Title</th>
           <th class="text-right">Cohort</th>
-          <th class="text-right">Unique purchasers</th>
+          <th class="text-right">Purchasers</th>
           <th class="text-right">Cost</th>
           <th>Currency</th>
           <th class="text-right">Revenue</th>
+          <th>Start date</th>
+          <th>End date</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -55,13 +74,14 @@
           <td class="text-right">{{ offer.approximateRevenue | currency:'CAD' }}</td>
           <td>{{ offer.startTime * 1000 | date:'yyyy-MM-dd HH:mm' }}</td>
           <td>{{ offer.endTime * 1000 | date:'yyyy-MM-dd HH:mm' }}</td>
+          <td><button type="button" class="btn btn-link p-0" (click)="updateCloneList(offer)"><i class="fas fa-share-square"></i></button></td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div *ngSwitchCase="'box'">
+  <div *ngSwitchCase="'box'" class="p-0">
       <div class="row select-list p-0 m-0">
-          <div class="offer-box col-sm-6 col-md-4 col-lg-3 mb-4" *ngFor="let offer of offers">
+          <div class="offer-box col-sm-6 col-md-4 mb-4" *ngFor="let offer of offers">
               <div class="card">
                 
                 <div class="card-body">
@@ -77,3 +97,4 @@
   </div>
 
 </div>
+</section>

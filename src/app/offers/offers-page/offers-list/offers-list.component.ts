@@ -30,18 +30,23 @@ export class OffersListComponent implements OnInit {
   private allOfferCount: number = this.allOffers.length;
   private startDate: number;
   private endDate: number;
+
+  // Filter details
   private onlyActive = false;
-  private displayMode: String = 'box';
-  selectedOffers: Offer[] = [];
+  private displayMode: String = 'table';
   private filterString: String;
+  private orderByFields: String[] = [ 'Revenue', 'Start time', 'End time', 'Cohort size', 'Unique purchasers', 'Cost' ];
+  private sortDirection: String = 'ascending';
+  private sortBy: String = 'Start time';
+
+  selectedOffers: Offer[] = [];
+
   @Output() selected = new EventEmitter<Offer>();
 
 
   ngOnInit() {
     this.getOffers();
   }
-
-
 
   getOffers() {
     this.offersService.getOffers(this.onlyActive).subscribe(data => {
@@ -64,13 +69,55 @@ export class OffersListComponent implements OnInit {
   filterOffers() {
     // filter by date
     this.offers = this.allOffers.filter(offer => offer.startTime >= this.startDate && offer.endTime <= this.endDate);
-    if (this.filterString != null && this.filterString != undefined && this.filterString != "") {
-      this.offers = this.offers.filter(o => 
-        o.offerCode.toUpperCase().indexOf(this.filterString.toUpperCase()) >= 0 );
-      //|| o.title.toUpperCase().indexOf(this.filterString.toUpperCase()) > 0);
+    if (this.filterString != null && this.filterString !== undefined && this.filterString !== '') {
+      this.offers = this.offers.filter(o => o.offerCode.toUpperCase().indexOf(this.filterString.toUpperCase()) >= 0 );
+      // || o.title.toUpperCase().indexOf(this.filterString.toUpperCase()) > 0);
     }
 
+    switch (this.sortBy) {
+      case 'Revenue':
+        this.offers = this.offers.sort(function(a, b) {
+          return (a.approximateRevenue > b.approximateRevenue) ? 1 : ((b.approximateRevenue > a.approximateRevenue) ? -1 : 0);
+        });
+        break;
+      case 'End time':
+        this.offers = this.offers.sort(function(a, b) {
+          return (a.endTime > b.endTime) ? 1 : ((b.endTime > a.endTime) ? -1 : 0);
+        });
+        break;
+      case 'Cohort size':
+        this.offers = this.offers.sort(function(a, b) {
+          return (a.cohortSize > b.cohortSize) ? 1 : ((b.cohortSize > a.cohortSize) ? -1 : 0);
+        });
+        break;
+      case 'Unique purchasers':
+        this.offers = this.offers.sort(function(a, b) {
+          return (a.uniquePurchased > b.uniquePurchased) ? 1 : ((b.uniquePurchased > a.uniquePurchased) ? -1 : 0);
+        });
+        break;
+      case 'Cost':
+        this.offers = this.offers.sort(function(a, b) {
+          return (a.cost > b.cost) ? 1 : ((b.cost > a.cost) ? -1 : 0);
+        });
+        break;
+      case 'Start time':
+      default:
+        this.offers = this.offers.sort(function(a, b) {
+          return (a.startTime > b.startTime) ? 1 : ((b.startTime > a.startTime) ? -1 : 0);
+        });
+        break;
+    }
 
+    if (this.sortDirection === 'descending') {
+      this.offers.reverse();
+    }
+  }
+
+  setSortDirection(direction: String) {
+    if (direction !== this.sortDirection) {
+      this.sortDirection = direction;
+      this.filterOffers();
+    }
   }
 
   updateCloneList(offer: Offer) {
