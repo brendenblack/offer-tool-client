@@ -1,19 +1,30 @@
-import { Component, Input, Output, EventEmitter, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, AfterViewChecked, ChangeDetectorRef, IterableDiffers, DoCheck } from '@angular/core';
 import { Offer } from '../../../core/models';
 import { OfferService } from '../../../core/services';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import * as squel from 'squel/';
 
 @Component({
   selector: 'app-clone-offers',
   templateUrl: './clone-offers.component.html',
   styleUrls: ['./clone-offers.component.css']
 })
-export class CloneOffersComponent implements AfterViewChecked {
-
-  constructor(private offerService: OfferService, private ref: ChangeDetectorRef) { }
+export class CloneOffersComponent implements DoCheck {
+  // private ref: ChangeDetectorRef,
+  constructor(private offerService: OfferService, private modalService: NgbModal) { }
 
   @Input()
   offers: CloneOffer[] = [];
 
+  sqlStatement: String = '';
+  // @Input()
+  // set offers(offers: Offer[]) {
+  //   console.log('setting offers');
+  //   this._offers = offers as CloneOffer[];
+  //   console.log(this._offers);
+  // }
+
+  // _offers: CloneOffer[] = [];
 
   // @Input('offers')
   // set offers(offers: Offer[]) {
@@ -35,18 +46,29 @@ export class CloneOffersComponent implements AfterViewChecked {
   //   return this._offers;
   // }
 
+
+
   // ugly
   get canGenerateOffers(): boolean {
-    for (const offer of this.offers) {
-      if (offer.newCode === undefined) {
-        offer.newCode = ((offer.offerCode.length >= 20) ? offer.offerCode.substr(0, 19) : offer.offerCode) + '2';
-      }
-    }
+    // for (const offer of this.offers) {
+    //   if (offer.newCode === undefined) {
+    //     offer.newCode = ((offer.offerCode.length >= 20) ? offer.offerCode.substr(0, 19) : offer.offerCode) + '2';
+    //   }
+    // }
     return true;
   }
 
   @Output() clearSelected = new EventEmitter<Offer>();
   @Output() clearAll = new EventEmitter();
+
+  ngDoCheck(): void {
+    console.log('do check');
+    for (const offer of this.offers) {
+      if (offer.newCode === undefined) {
+        offer.newCode = ((offer.offerCode.length >= 20) ? offer.offerCode.substr(0, 19) : offer.offerCode) + '2';
+      }
+    }
+  }
 
   doClearSelected(offer: Offer) {
     // TODO: remove item from list; this.list.get(offer.id);
@@ -66,18 +88,39 @@ export class CloneOffersComponent implements AfterViewChecked {
     }
   }
 
-  doGenerateSql() {
+  doGenerateSql(sqlModal) {
     console.log(this.offers);
-    const map = new Map<number, String>();
+    const targets = new Map<number, String>();
     for (const offer of this.offers) {
-      map.set(offer.id, offer.newCode);
+      targets.set(offer.id, offer.newCode);
     }
-    console.log(map);
+    console.log(targets);
+
+    this.offerService.getCloneSql(targets).subscribe(data => {
+      console.log(data);
+      this.sqlStatement = data;
+      this.modalService.open(sqlModal, { ariaLabelledBy: 'modal-basic-title'});
+    });
   }
 
-  ngAfterViewChecked(): void {
-    this.ref.detectChanges();
+  doGenerateSql2(sqlModal) {
+    const insert = squel.insert().into('offers');
+
+    const fieldRows = [];
+    for (const offer of this.offers) {
+      fieldRows.push({ offer_code: offer.newCode });
+    }
+
+    insert.setFieldsRows(fieldRows);
+
+    console.log(insert.toString());
+    this.sqlStatement = insert.toString();
+    this.modalService.open(sqlModal, { ariaLabelledBy: 'modal-basic-title'});
   }
+
+  // ngAfterViewChecked(): void {
+  //   this.ref.detectChanges();
+  // }
 
 }
 

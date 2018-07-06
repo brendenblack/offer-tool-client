@@ -1,6 +1,6 @@
 <section class="border">
     <div class="btn-group p-2 bg-light" role="group" aria-label="Offer clone commands">
-            <button type="button" class="btn btn-primary" [disabled]="!canGenerateOffers" (click)="doGenerateSql()"><i class="fas fa-file-export"></i> Generate SQL</button>
+            <button type="button" class="btn btn-primary" [disabled]="!canGenerateOffers" (click)="doGenerateSql2(sqlModal)"><i class="fas fa-file-export"></i> Generate SQL</button>
             <button type="button" class="btn btn-disabled" disabled><i class="fas fa-database"></i> Insert to SB2</button>
             <button type="button" class="btn btn-secondary" (click)="doClearAll()"><i class="fas fa-ban"></i> Clear</button>
     </div>
@@ -17,3 +17,16 @@
         </tbody>
     </table>
 </section>
+
+<ng-template #sqlModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Generated SQL</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <p style="font-size: 10px;">{{ sqlStatement }}</p>
+    </div>
+</ng-template>
