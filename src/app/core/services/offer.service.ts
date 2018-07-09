@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ApiService } from './api.service';
-import { Offer } from '../models';
+import { Offer, CreateOffer } from '../models';
 import { map } from 'rxjs/operators';
 
 @Injectable()
@@ -24,7 +24,14 @@ export class OfferService {
             return data.sql;
         }));
     }
+
+    getCloneDetails(ids: number[]): Observable<CreateOffer[]> {
+        return this.apiService.get(`/offers/clone?ids=${ids.join(',')}`).pipe(map(data => {
+            return data.offers
+        }));
+    }
 }
+
 
 export class CloneOfferCommand {
     targets: CloneOfferTarget[] = [];

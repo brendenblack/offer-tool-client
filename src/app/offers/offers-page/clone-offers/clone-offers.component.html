@@ -29,4 +29,8 @@
     <div class="modal-body">
         <p style="font-size: 10px;">{{ sqlStatement }}</p>
     </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" [ngxClipboard]="sqlStatement"><i class="fas fa-copy"></i></button>
+    </div>
 </ng-template>

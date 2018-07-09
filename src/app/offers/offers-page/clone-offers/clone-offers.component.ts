@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, AfterViewChecked, ChangeDetectorRef, IterableDiffers, DoCheck } from '@angular/core';
-import { Offer } from '../../../core/models';
+import { Offer, CreateOffer } from '../../../core/models';
 import { OfferService } from '../../../core/services';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as squel from 'squel/';
@@ -17,44 +17,9 @@ export class CloneOffersComponent implements DoCheck {
   offers: CloneOffer[] = [];
 
   sqlStatement: String = '';
-  // @Input()
-  // set offers(offers: Offer[]) {
-  //   console.log('setting offers');
-  //   this._offers = offers as CloneOffer[];
-  //   console.log(this._offers);
-  // }
 
-  // _offers: CloneOffer[] = [];
-
-  // @Input('offers')
-  // set offers(offers: Offer[]) {
-  //   console.log('executing set');
-  //   this._offers = offers;
-
-  //   this.list.clear();
-
-  //   for (const offer of offers) {
-  //     const code = (offer.offerCode.length >= 20) ? offer.offerCode.substr(0, 19) : offer.offerCode;
-  //     console.log('adding offer ' + offer.offerCode);
-  //     this.list.set(offer.id, code + '2');
-  //     console.log(this.list);
-  //   }
-  // }
-
-  // get offers(): Offer[] {
-  //   console.log('returning offers');
-  //   return this._offers;
-  // }
-
-
-
-  // ugly
   get canGenerateOffers(): boolean {
-    // for (const offer of this.offers) {
-    //   if (offer.newCode === undefined) {
-    //     offer.newCode = ((offer.offerCode.length >= 20) ? offer.offerCode.substr(0, 19) : offer.offerCode) + '2';
-    //   }
-    // }
+    // TODO
     return true;
   }
 
@@ -62,9 +27,9 @@ export class CloneOffersComponent implements DoCheck {
   @Output() clearAll = new EventEmitter();
 
   ngDoCheck(): void {
-    console.log('do check');
     for (const offer of this.offers) {
       if (offer.newCode === undefined) {
+        // if no new code is yet set, set it to the current value + 2 (respecting the max limit of 20 characters)
         offer.newCode = ((offer.offerCode.length >= 20) ? offer.offerCode.substr(0, 19) : offer.offerCode) + '2';
       }
     }
@@ -106,24 +71,45 @@ export class CloneOffersComponent implements DoCheck {
   doGenerateSql2(sqlModal) {
     const insert = squel.insert().into('offers');
 
-    const fieldRows = [];
-    for (const offer of this.offers) {
-      fieldRows.push({ offer_code: offer.newCode });
-    }
+    this.offerService.getCloneDetails(this.offers.map(o => o.id)).subscribe((data: CreateOffer[]) => {
+      const fieldRows = [];
+      const startTime = ~~(new Date().getTime() / 1000); // https://stackoverflow.com/a/8388831
+      const endTime = startTime + (86400 * 3); 
+      for (const o of data) {
+        fieldRows.push({
+          offer_code: 'newcode',
+          title: o.title,
+          desc: o.description || '',
+          icon_title: o.iconTitle || '',
+          icon_desc: o.iconDescription || '',
+          COST: o.cost,
+          COST_SKU: o.costSku,
+          DISPLAY_OPTIONS: o.displayOptions,
+          DURATION: o.duration,
+          START_TIME: startTime,
+          END_TIME: endTime,
+          CREATED_TIME: startTime,
+          MOD_TIME: startTime,
+          IS_ENABLED: 1,
+          IS_DELETED: 0,
+          PRE_REQ: o.prerequisite,
+          COOLDOWN: 0,
+          COOLDOWN_TYPE: 0,
+          PRIORITY: o.priority,
+          CONTENT: o.content
+        })
+        console.log(o);
+      }
+      insert.setFieldsRows(fieldRows);
 
-    insert.setFieldsRows(fieldRows);
+      this.sqlStatement = insert.toString();
+      this.modalService.open(sqlModal, { ariaLabelledBy: 'modal-basic-title', size: 'lg' });
+    });
 
-    console.log(insert.toString());
-    this.sqlStatement = insert.toString();
-    this.modalService.open(sqlModal, { ariaLabelledBy: 'modal-basic-title'});
+
+    
   }
-
-  // ngAfterViewChecked(): void {
-  //   this.ref.detectChanges();
-  // }
-
 }
-
 
 export class CloneOffer extends Offer {
   newCode: String;

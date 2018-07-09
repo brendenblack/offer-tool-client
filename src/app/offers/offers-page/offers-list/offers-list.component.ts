@@ -36,7 +36,7 @@ export class OffersListComponent implements OnInit {
   private displayMode: String = 'table';
   private filterString: String;
   private orderByFields: String[] = [ 'Revenue', 'Start time', 'End time', 'Cohort size', 'Unique purchasers', 'Cost' ];
-  private sortDirection: String = 'ascending';
+  private sortDirection: String = 'descending';
   private sortBy: String = 'Start time';
 
   selectedOffers: Offer[] = [];

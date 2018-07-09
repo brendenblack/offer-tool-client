@@ -9,6 +9,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CloneOffersComponent } from './offers-page/clone-offers/clone-offers.component';
 import { FormsModule } from '@angular/forms';
+import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { FormsModule } from '@angular/forms';
     OffersRoutingModule,
     Ng2SmartTableModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    ClipboardModule
   ],
   declarations: [
     OffersPageComponent,

@@ -22,3 +22,8 @@ a .card:hover { background-color: purple;}
   .custom-day.faded {
     background-color: rgba(2, 117, 216, 0.5);
   }
+
+
+  table {
+    font-size: 12px;
+  }
