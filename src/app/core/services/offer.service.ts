@@ -27,7 +27,7 @@ export class OfferService {
 
     getCloneDetails(ids: number[]): Observable<CreateOffer[]> {
         return this.apiService.get(`/offers/clone?ids=${ids.join(',')}`).pipe(map(data => {
-            return data.offers
+            return data.offers;
         }));
     }
 }

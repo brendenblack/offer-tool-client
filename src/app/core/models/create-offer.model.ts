@@ -10,9 +10,10 @@ export class CreateOffer {
     displayOptions: string;
     cost: number;
     fullCost: number;
-    costSku: string = 'gold';
+    costSku = 'gold';
     duration: number;
     templateId: number;
     priority: number;
-    prerequisite?: any;
+    prerequisite?: string;
+    maxQuantity: number;
 }

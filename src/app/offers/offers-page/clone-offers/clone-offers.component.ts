@@ -69,12 +69,13 @@ export class CloneOffersComponent implements DoCheck {
   }
 
   doGenerateSql2(sqlModal) {
-    const insert = squel.insert().into('offers');
+    const insert = squel.insert({ autoQuoteFieldNames: true }).into('offers');
 
     this.offerService.getCloneDetails(this.offers.map(o => o.id)).subscribe((data: CreateOffer[]) => {
       const fieldRows = [];
-      const startTime = ~~(new Date().getTime() / 1000); // https://stackoverflow.com/a/8388831
-      const endTime = startTime + (86400 * 3); 
+      // tslint:disable-next-line:no-bitwise
+      const startTime = (new Date().getTime() / 1000) | 0; // https://stackoverflow.com/a/8388831
+      const endTime = startTime + (86400 * 3);
       for (const o of data) {
         fieldRows.push({
           offer_code: 'newcode',
@@ -96,18 +97,20 @@ export class CloneOffersComponent implements DoCheck {
           COOLDOWN: 0,
           COOLDOWN_TYPE: 0,
           PRIORITY: o.priority,
-          CONTENT: o.content
-        })
+          CONTENT: o.content,
+          DISPLAYED_ITEMS: o.displayedItems,
+          MAX_QTY: o.maxQuantity,
+          FULL_COST: o.fullCost,
+          TEMPLATE_ID: o.templateId
+        });
         console.log(o);
       }
       insert.setFieldsRows(fieldRows);
 
       this.sqlStatement = insert.toString();
+      
       this.modalService.open(sqlModal, { ariaLabelledBy: 'modal-basic-title', size: 'lg' });
     });
-
-
-    
   }
 }
 
