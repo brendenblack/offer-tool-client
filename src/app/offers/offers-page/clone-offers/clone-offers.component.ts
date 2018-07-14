@@ -17,6 +17,7 @@ export class CloneOffersComponent implements DoCheck {
   offers: CloneOffer[] = [];
 
   sqlStatement: String = '';
+  generatedFor: number[] = [];
 
   get canGenerateOffers(): boolean {
     // TODO
@@ -54,63 +55,66 @@ export class CloneOffersComponent implements DoCheck {
   }
 
   doGenerateSql(sqlModal) {
-    console.log(this.offers);
     const targets = new Map<number, String>();
     for (const offer of this.offers) {
       targets.set(offer.id, offer.newCode);
     }
-    console.log(targets);
 
     this.offerService.getCloneSql(targets).subscribe(data => {
-      console.log(data);
       this.sqlStatement = data;
       this.modalService.open(sqlModal, { ariaLabelledBy: 'modal-basic-title'});
     });
   }
 
   doGenerateSql2(sqlModal) {
-    const insert = squel.insert({ autoQuoteFieldNames: true }).into('offers');
+    const generateFor = this.offers.map(o => o.id);
 
-    this.offerService.getCloneDetails(this.offers.map(o => o.id)).subscribe((data: CreateOffer[]) => {
-      const fieldRows = [];
-      // tslint:disable-next-line:no-bitwise
-      const startTime = (new Date().getTime() / 1000) | 0; // https://stackoverflow.com/a/8388831
-      const endTime = startTime + (86400 * 3);
-      for (const o of data) {
-        fieldRows.push({
-          offer_code: 'newcode',
-          title: o.title,
-          desc: o.description || '',
-          icon_title: o.iconTitle || '',
-          icon_desc: o.iconDescription || '',
-          COST: o.cost,
-          COST_SKU: o.costSku,
-          DISPLAY_OPTIONS: o.displayOptions,
-          DURATION: o.duration,
-          START_TIME: startTime,
-          END_TIME: endTime,
-          CREATED_TIME: startTime,
-          MOD_TIME: startTime,
-          IS_ENABLED: 1,
-          IS_DELETED: 0,
-          PRE_REQ: o.prerequisite,
-          COOLDOWN: 0,
-          COOLDOWN_TYPE: 0,
-          PRIORITY: o.priority,
-          CONTENT: o.content,
-          DISPLAYED_ITEMS: o.displayedItems,
-          MAX_QTY: o.maxQuantity,
-          FULL_COST: o.fullCost,
-          TEMPLATE_ID: o.templateId
-        });
-        console.log(o);
-      }
-      insert.setFieldsRows(fieldRows);
+    if (JSON.stringify(this.generatedFor.sort()) !== JSON.stringify(generateFor.sort())) {
+      this.sqlStatement = '';
+      const insert = squel.insert({ autoQuoteFieldNames: true }).into('offers');
 
-      this.sqlStatement = insert.toString();
-      
-      this.modalService.open(sqlModal, { ariaLabelledBy: 'modal-basic-title', size: 'lg' });
-    });
+      this.offerService.getCloneDetails(generateFor).subscribe((data: CreateOffer[]) => {
+        const fieldRows = [];
+        // tslint:disable-next-line:no-bitwise
+        const startTime = (new Date().getTime() / 1000) | 0; // https://stackoverflow.com/a/8388831
+        const endTime = startTime + (86400 * 3);
+        for (const o of data) {
+          const newCode = this.offers.find(c => c.id === o.id).newCode || 'NewCode';
+          fieldRows.push({
+            offer_code: newCode,
+            title: o.title,
+            desc: o.description || '',
+            icon_title: o.iconTitle || '',
+            icon_desc: o.iconDescription || '',
+            COST: o.cost,
+            COST_SKU: o.costSku,
+            DISPLAY_OPTIONS: o.displayOptions,
+            DURATION: o.duration,
+            START_TIME: startTime,
+            END_TIME: endTime,
+            CREATED_TIME: startTime,
+            MOD_TIME: startTime,
+            IS_ENABLED: 1,
+            IS_DELETED: 0,
+            PRE_REQ: o.prerequisite,
+            COOLDOWN: 0,
+            COOLDOWN_TYPE: 0,
+            PRIORITY: o.priority,
+            CONTENT: o.content,
+            DISPLAYED_ITEMS: o.displayedItems,
+            MAX_QTY: o.maxQuantity,
+            FULL_COST: o.fullCost,
+            TEMPLATE_ID: o.templateId
+          });
+        }
+        insert.setFieldsRows(fieldRows);
+
+        this.sqlStatement = insert.toString();
+        this.generatedFor = generateFor;
+      });
+    }
+
+    this.modalService.open(sqlModal, { ariaLabelledBy: 'modal-basic-title', size: 'lg' });
   }
 }
 
