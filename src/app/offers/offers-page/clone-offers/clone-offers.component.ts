@@ -83,7 +83,7 @@ export class CloneOffersComponent implements DoCheck {
           fieldRows.push({
             offer_code: newCode,
             title: o.title,
-            desc: o.description || '',
+            desc: o.description.replace('\'', '\'\'') || '',
             icon_title: o.iconTitle || '',
             icon_desc: o.iconDescription || '',
             COST: o.cost,
@@ -108,8 +108,8 @@ export class CloneOffersComponent implements DoCheck {
           });
         }
         insert.setFieldsRows(fieldRows);
-
-        this.sqlStatement = insert.toString();
+        const regex = /\),\s\(/g;
+        this.sqlStatement = insert.toString().replace(' VALUES ', '<br />VALUES<br />').replace(regex, '),<br />(');
         this.generatedFor = generateFor;
       });
     }

@@ -1,6 +1,6 @@
 export class Offer {
-    offerCode: String;
-    title: String;
+    offerCode: string;
+    title: string;
     startTime: number;
     endTime: number;
     duration: number;

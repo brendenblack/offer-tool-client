@@ -10,6 +10,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CloneOffersComponent } from './offers-page/clone-offers/clone-offers.component';
 import { FormsModule } from '@angular/forms';
 import { ClipboardModule } from 'ngx-clipboard';
+import { OffersCalendarPageComponent } from './offers-calendar-page/offers-calendar-page.component';
+import { OffersCalendarComponent } from './offers-calendar-page/offers-calendar/offers-calendar.component';
+import { CalendarCommonModule } from 'angular-calendar/modules/common';
+import { CalendarMonthModule } from 'angular-calendar/modules/month';
+import { CalendarModule } from '../../../node_modules/angular-calendar';
 
 @NgModule({
   imports: [
@@ -18,13 +23,16 @@ import { ClipboardModule } from 'ngx-clipboard';
     Ng2SmartTableModule,
     NgbModule,
     FormsModule,
-    ClipboardModule
+    ClipboardModule,
+    CalendarModule.forRoot()
   ],
   declarations: [
     OffersPageComponent,
     OffersListComponent,
     OfferDetailsPageComponent,
-    CloneOffersComponent],
+    CloneOffersComponent,
+    OffersCalendarPageComponent,
+    OffersCalendarComponent],
   providers: [ OfferService ]
 })
 export class OffersModule { }
