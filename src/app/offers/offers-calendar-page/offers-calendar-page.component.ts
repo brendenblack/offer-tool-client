@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { CalendarEvent } from 'angular-calendar';
 import { Colours } from '../../shared/utils/colours/';
 
 @Component({
@@ -10,9 +9,6 @@ import { Colours } from '../../shared/utils/colours/';
 export class OffersCalendarPageComponent implements OnInit {
 
   constructor() { }
-
-  viewDate: Date = new Date();
-  events: CalendarEvent[] = [];
 
   ngOnInit() {
   }

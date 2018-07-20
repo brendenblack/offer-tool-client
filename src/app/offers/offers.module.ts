@@ -12,9 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { ClipboardModule } from 'ngx-clipboard';
 import { OffersCalendarPageComponent } from './offers-calendar-page/offers-calendar-page.component';
 import { OffersCalendarComponent } from './offers-calendar-page/offers-calendar/offers-calendar.component';
-import { CalendarCommonModule } from 'angular-calendar/modules/common';
-import { CalendarMonthModule } from 'angular-calendar/modules/month';
-import { CalendarModule } from '../../../node_modules/angular-calendar';
+import { FullCalendarModule } from 'ng-fullcalendar';
 
 @NgModule({
   imports: [
@@ -24,7 +22,7 @@ import { CalendarModule } from '../../../node_modules/angular-calendar';
     NgbModule,
     FormsModule,
     ClipboardModule,
-    CalendarModule.forRoot()
+    FullCalendarModule
   ],
   declarations: [
     OffersPageComponent,
