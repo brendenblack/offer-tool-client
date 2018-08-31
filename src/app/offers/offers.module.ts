@@ -13,6 +13,7 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { OffersCalendarPageComponent } from './offers-calendar-page/offers-calendar-page.component';
 import { OffersCalendarComponent } from './offers-calendar-page/offers-calendar/offers-calendar.component';
 import { FullCalendarModule } from 'ng-fullcalendar';
+import { OfferCreatePageComponent } from './offer-create-page/offer-create-page.component';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { FullCalendarModule } from 'ng-fullcalendar';
     OfferDetailsPageComponent,
     CloneOffersComponent,
     OffersCalendarPageComponent,
-    OffersCalendarComponent],
+    OffersCalendarComponent,
+    OfferCreatePageComponent],
   providers: [ OfferService ]
 })
 export class OffersModule { }
