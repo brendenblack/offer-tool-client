@@ -3,10 +3,12 @@ import { Observable, of } from 'rxjs';
 import { ApiService } from './api.service';
 import { Offer, CreateOffer } from '../models';
 import { map } from 'rxjs/operators';
+import { OfferCatalog } from '../models/offer-catalog.model';
+import { WcOffersService } from './wcoffers.service';
 
 @Injectable()
 export class OfferService {
-    constructor(private apiService: ApiService) {}
+    constructor(private apiService: ApiService, private wcOffersApiService: WcOffersService) {}
 
     getOffers(active: boolean = false): Observable<Offer[]> {
         return this.apiService.get(`/offers?active=${active}`).pipe(map(data => {
@@ -28,6 +30,12 @@ export class OfferService {
     getCloneDetails(ids: number[]): Observable<CreateOffer[]> {
         return this.apiService.get(`/offers/clone?ids=${ids.join(',')}`).pipe(map(data => {
             return data.offers;
+        }));
+    }
+
+    getCatalog(): Observable<OfferCatalog> {
+        return this.wcOffersApiService.get(`/catalog`).pipe(map(data => {
+            return data;
         }));
     }
 }

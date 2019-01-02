@@ -1,0 +1,160 @@
+<div *ngIf="offer" class="mw-100 create-offer-form">
+  <form #offerForm="ngForm">
+    <div class="form-group form-row">
+      <label for="code" class="col-xl-3 col-md-12 col-form-label col-form-label-sm">Code</label>
+      <div class="col">
+        <input type="text" class="form-control form-control-sm" id="code" aria-describedby="codeHelp" required [(ngModel)]="offer.code" name="code">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <button type="button" class="btn btn-link p-0" (click)="isDetailsCollapsed = !isDetailsCollapsed" [attr.aria-expanded]="!isDetailsCollapsed" aria-controls="detailsCollapse">
+          Descriptive fields <small>(click to {{ isDetailsCollapsed ? 'show' : 'hide' }})</small>
+        </button>
+      <div id="detailsCollapse" [ngbCollapse]="isDetailsCollapsed" class="w-100">
+        <div class="form-group form-row">
+            <label for="title" class="col-xl-3 col-md-12 col-form-label col-form-label-sm">Title</label>
+            <div class="col">
+              <input type="text" class="form-control form-control-sm" id="title" [(ngModel)]="offer.title" name="title" >
+            </div>  
+        </div>
+
+        <div class="form-group form-row">
+            <label for="description" class="col-xl-3 col-md-12 col-form-label col-form-label-sm">Description</label>
+            <div class="col">
+              <textarea class="form-control form-control-sm" rows="3" id="description" [(ngModel)]="offer.description" name="description"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group form-row">
+            <label for="iconTitle" class="col-xl-3 col-md-12 col-form-label col-form-label-sm">Icon Title</label>
+            <div class="col">
+              <input type="text" class="form-control form-control-sm" id="iconTitle" [(ngModel)]="offer.iconTitle" name="iconTitle" >
+            </div>  
+        </div>
+
+        <div class="form-group form-row">
+            <label for="iconDescription" class="col-xl-3 col-md-12 col-form-label col-form-label-sm">Icon Description</label>
+            <div class="col">
+              <textarea class="form-control form-control-sm" rows="3" id="iconDescription" [(ngModel)]="offer.iconDescription" name="iconDescription"></textarea>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+        <button type="button" class="btn btn-link p-0" (click)="isTimeFieldsCollapsed = !isTimeFieldsCollapsed" [attr.aria-expanded]="!isTimeFieldsCollapsed" aria-controls="timeFieldsCollapse">
+            Time fields <small>(click to {{ isTimeFieldsCollapsed ? 'show' : 'hide' }})</small>
+          </button>
+      
+    
+      <div id="timeFieldsCollapse" [ngbCollapse]="isTimeFieldsCollapsed" class="w-100">
+        <div class="form-group form-row">
+            <label for="startDate" class="col-xl-3 col-md-12 col-form-label col-form-label-sm">Start time</label>
+            <div class="col-xl-9 col-md-12">
+              <input type="datetime-local" class="form-control form-control-sm" id="startDate" [(ngModel)]="startDateString" name="startDate" >
+            </div>  
+        </div>
+
+        <div class="form-group form-row">
+            <label for="endDate" class="col-xl-3 col-md-12 col-form-label col-form-label-sm">End time</label>
+            <div class="col-xl-9 col-md-12">
+              <input type="datetime-local" class="form-control form-control-sm" id="endDate" [(ngModel)]="endDateString" name="endDate" >
+            </div>  
+        </div>
+
+        <div class="form-group form-row">
+            <label for="duration" class="col-xl-3 col-md-12 col-form-label col-form-label-sm">Duration</label>
+            <div class="col-xl-9 col-md-12">
+              <input type="number" class="form-control form-control-sm" id="duration" [(ngModel)]="offer.duration" name="duration" >
+            </div>  
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <button type="button" class="btn btn-link p-0" (click)="isContentCollapsed = !isContentCollapsed" [attr.aria-expanded]="!isContentCollapsed" aria-controls="contentCollapse">
+        Content <small>(click to {{ isContentCollapsed ? 'show' : 'hide' }})</small>
+      </button>
+      <div id="contentCollapse" [ngbCollapse]="isContentCollapsed" class="w-100">
+        <div class="content-block">
+          <div class="form-group form-row">
+            <label class="col-xl-3 col-md-12 col-form-label col-form-label-sm">Skus</label>
+            <div class="col">
+              <div class="row" *ngFor="let sku of offer.content.skus | keyvalue">
+                <div class="col">
+                  {{ sku.key }}
+                </div>
+                <div class="col-md-auto">
+                  {{ sku.value }}
+                </div>
+                <div class="col-md-auto">
+                  <button class="btn btn-link m-0 mr-1 p-0" (click)="incrementSku(sku.key)"><i class="fas fa-plus-square"></i></button>
+                  <button class="btn btn-link m-0 p-0" (click)="decrementSku(sku.key)"><i *ngIf="sku.value == 1" class="fas fa-trash-alt text-danger"></i><i *ngIf="sku.value > 1" class="fas fa-minus-square"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group form-row">
+            <label class="col-xl-3 col-md-12 col-form-label col-form-label-sm">Units<br />(prebuilt)</label>
+            <div class="col">
+              <div class="row" *ngFor="let u of offer.content.prebuiltUnits">
+                <div class="col">
+                  {{ u.name }} ({{ u.type }})
+                </div>
+                <div class="col-md-auto">
+                  {{ u.amount }}
+                </div>
+                <div class="col-md-auto">
+                  <button class="btn btn-link m-0 mr-1 p-0" (click)="incrementPrebuilt(u)"><i class="fas fa-plus-square"></i></button>
+                  <button class="btn btn-link m-0 p-0" (click)="decrementPrebuilt(u)">
+                      <i *ngIf="u.amount == 1" class="fas fa-trash-alt text-danger"></i><i *ngIf="u.amount > 1" class="fas fa-minus-square"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="form-row">
+      <button type="button" class="btn btn-link p-0" (click)="isDisplayCollapsed = !isDisplayCollapsed" [attr.aria-expanded]="!isDisplayCollapsed" aria-controls="displayCollapse">
+        Content <small>(click to {{ isDisplayCollapsed ? 'show' : 'hide' }})</small>
+      </button>
+      <div id="displayCollapse" [ngbCollapse]="isDisplayCollapsed" class="w-100">
+        <div class="content-block">
+          <div class="form-group form-row">
+            <label for="templateId" class="col-xl-3 col-md-12 col-form-label col-form-label-sm">Template</label>
+            <div class="col-xl-9 col-md-12">
+              <select class="form-control form-control-sm" id="template" name="templateId" [(ngModel)]="offer.templateId">
+                <option [value]="1">Background only</option>
+                <option [value]="6">1 item (supports background)</option>
+                <option [value]="4">3 items</option>
+                <option [value]="5">4 items</option>
+                <option [value]="3">5 items</option>
+                <option [value]="2">6 items</option>
+              </select>
+            </div>  
+          </div>
+        
+          <div class="form-group form-row" *ngIf="offer.templateId == 1 || offer.templateId == 6">
+            <label for="background" class="col-xl-3 col-md-12 col-form-label col-form-label-sm">Background</label>
+            <div class="col-xl-9 col-md-12">
+              <input type="text" class="form-control form-control-sm" id="background" [(ngModel)]="offer.displayOptions.background" name="background">
+            </div>  
+          </div>
+          
+          
+          
+      </div>
+    </div>
+    </div>
+      
+
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+</div>
