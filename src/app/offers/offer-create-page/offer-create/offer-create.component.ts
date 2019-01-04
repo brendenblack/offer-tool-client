@@ -31,7 +31,7 @@ export class OfferCreateComponent implements OnInit {
 
   offer: AddOffer;
 
-  isDetailsCollapsed: boolean = true;
+  isDetailsCollapsed: boolean = false;
   isTimeFieldsCollapsed: boolean = true;
   isContentCollapsed: boolean = false;
   isDisplayCollapsed:boolean = false;

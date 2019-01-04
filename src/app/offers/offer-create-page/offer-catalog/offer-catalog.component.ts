@@ -19,18 +19,25 @@ export class OfferCatalogComponent implements OnInit {
   unitTags:Set<string> = new Set();
 
   get units():Unit[] {
-    return this.catalog.units.filter((u) => {
-      return !u.tags.find(t => t === "SINGLE_USE");
-    }).sort((a,b) => a.type < b.type ? 1 : a.type > b.type ? -1 : 0);
+    if (this.catalog) {
+      return this.catalog.units.filter((u) => {
+        return !u.tags.find(t => t === "SINGLE_USE");
+      }).sort((a,b) => a.type < b.type ? 1 : a.type > b.type ? -1 : 0);
+    }
+    else {
+      return [];
+    }
   }
+
+  private visibleTab: 'units' | 'buildings' = 'units';
   
   ngOnInit() {
-    // this.offersService.getCatalog().subscribe(data => {
-    //   this.catalog = data;
+    this.offersService.getCatalog().subscribe(data => {
+      this.catalog = data;
 
-    //   this.catalog.units.forEach(u => u.tags.forEach(t => this.unitTags.add(t)));
-    //   console.log(this.unitTags);
-    // });
+      this.catalog.units.forEach(u => u.tags.forEach(t => this.unitTags.add(t)));
+      console.log(this.unitTags);
+    });
   }
 
 
