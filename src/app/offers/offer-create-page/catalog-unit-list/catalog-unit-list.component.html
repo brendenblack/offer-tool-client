@@ -1,12 +1,16 @@
-<div class="border-bottom border-light pb-1 mb-1">
+<div class="border-bottom border-light pb-1 mb-1 unit-list">
   <div class="row">
     <div class="col">
-      <p class="m-0 font-weight-bold">{{unit.type}} {{ unit.name }}</p>
+      <p class="m-0"><strong>{{ unit.name }}</strong> - {{unit.type}}</p>
     </div>
   </div>
   <div class="row">
     <div class="col">
-      <p class="m-0"><small>({{ unit.tags }})</small></p>
+      <span class="badge badge-pill badge-secondary mr-1" *ngFor="let t of unit.tags">{{ t }}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
       <p class="m-0">{{ unit.description }}</p>
     </div>
     <div class="col-sm-auto">
