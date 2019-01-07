@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CreateOfferService } from 'src/app/offers/offer-create-page/create-offer.service';
 import { Subscription } from 'rxjs';
 import { AddOffer, Unit } from 'src/app/core/models';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-offer-create',
   templateUrl: './offer-create.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./offer-create.component.css']
 })
 export class OfferCreateComponent implements OnInit {
 
-  constructor(private createOfferService:CreateOfferService) { 
+  constructor(private createOfferService:CreateOfferService, private modalService: NgbModal) { 
     this.offer = new AddOffer();
 
     this.offerContentSubscription = createOfferService.offerContent$.subscribe(content => {
@@ -37,6 +39,10 @@ export class OfferCreateComponent implements OnInit {
   isDisplayCollapsed:boolean = false;
 
   private templateValueCapacity = { 1: 0, 6: 1, 4: 3, 5: 4, 3: 5, 2: 6 };
+
+  openModal(content) {
+    this.modalService.open(content, { centered: true, size: 'sm' });
+  }
 
   get startDateString():string {
     return this.formatDate(this.offer.startDate);

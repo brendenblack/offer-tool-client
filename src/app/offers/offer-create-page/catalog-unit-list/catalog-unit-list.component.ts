@@ -57,4 +57,18 @@ export class CatalogUnitListComponent implements OnInit {
   addPrebuilt() {
     this.createService.addPrebuiltUnit(this.unit);
   }
+
+  tagToBackground(tag: string) {
+    switch (tag) {
+      case 'UNIQUE': {
+        return '#ffd700;';
+      }
+      case 'CORPUS': {
+        return '';
+      }
+      default: {
+        return '';
+      }
+    }
+  }
 }

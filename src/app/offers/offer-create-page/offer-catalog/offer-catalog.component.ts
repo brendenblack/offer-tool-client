@@ -32,12 +32,12 @@ export class OfferCatalogComponent implements OnInit {
   private visibleTab: 'units' | 'buildings' = 'units';
   
   ngOnInit() {
-    this.offersService.getCatalog().subscribe(data => {
-      this.catalog = data;
+    // this.offersService.getCatalog().subscribe(data => {
+    //   this.catalog = data;
 
-      this.catalog.units.forEach(u => u.tags.forEach(t => this.unitTags.add(t)));
-      console.log(this.unitTags);
-    });
+    //   this.catalog.units.forEach(u => u.tags.forEach(t => this.unitTags.add(t)));
+    //   console.log(this.unitTags);
+    // });
   }
 
 
