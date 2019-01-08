@@ -1,5 +1,5 @@
 export class OfferCatalog {
-  units: Unit[]
+  units: Unit[];
 }
 
 export interface Sku {
@@ -15,8 +15,8 @@ export interface Item {
 }
 
 export interface GrantableItem {
-    sku: Sku
-    item: Item
+    sku: Sku;
+    item: Item;
 }
 
 export class Unit {

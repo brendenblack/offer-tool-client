@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, AfterViewChecked, ChangeDetectorRef, IterableDiffers, DoCheck } from '@angular/core';
-import { Offer, CreateOffer } from '../../../core/models';
-import { OfferService } from '../../../core/services';
+import { OfferSummary, OfferEntity} from '../../../core/models';
+import { OfferService, OfferCloneSkeleton } from '../../../core/services';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as squel from 'squel/';
 
@@ -24,7 +24,7 @@ export class CloneOffersComponent implements DoCheck {
     return true;
   }
 
-  @Output() clearSelected = new EventEmitter<Offer>();
+  @Output() clearSelected = new EventEmitter<OfferSummary>();
   @Output() clearAll = new EventEmitter();
 
   ngDoCheck(): void {
@@ -36,7 +36,7 @@ export class CloneOffersComponent implements DoCheck {
     }
   }
 
-  doClearSelected(offer: Offer) {
+  doClearSelected(offer: OfferSummary) {
     // TODO: remove item from list; this.list.get(offer.id);
     this.clearSelected.emit(offer);
   }
@@ -73,7 +73,9 @@ export class CloneOffersComponent implements DoCheck {
       this.sqlStatement = '';
       const insert = squel.insert({ autoQuoteFieldNames: true }).into('offers');
 
-      this.offerService.getCloneDetails(generateFor).subscribe((data: CreateOffer[]) => {
+      console.log(this.offers);
+
+      this.offerService.getOffers(generateFor).subscribe((data: OfferCloneSkeleton[]) => {
         const fieldRows = [];
         // tslint:disable-next-line:no-bitwise
         const startTime = (new Date().getTime() / 1000) | 0; // https://stackoverflow.com/a/8388831
@@ -107,6 +109,10 @@ export class CloneOffersComponent implements DoCheck {
             TEMPLATE_ID: o.templateId
           });
         }
+
+        console.log('field rows:');
+        console.log(fieldRows);
+
         insert.setFieldsRows(fieldRows);
         const regex = /\),\s\(/g;
         this.sqlStatement = insert.toString().replace(' VALUES ', '<br />VALUES<br />').replace(regex, '),<br />(');
@@ -118,6 +124,6 @@ export class CloneOffersComponent implements DoCheck {
   }
 }
 
-export class CloneOffer extends Offer {
+export class CloneOffer extends OfferSummary {
   newCode: String;
 }
