@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Subject, BehaviorSubject }    from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { OfferContent, OfferDisplay, UnitOfferContent, Unit } from 'src/app/core/models';
 import { stringify } from '@angular/compiler/src/util';
- 
+
 @Injectable()
 export class CreateOfferService {
 
@@ -19,49 +19,49 @@ export class CreateOfferService {
     private offerDisplayedItems = new Subject<OfferDisplay>();
     offerDisplayedItems$ = this.offerDisplayedItems.asObservable();
 
-    addUnit(type:number) {
+    addUnit(type: number) {
         this.unitTypes.next(type);
     }
 
-    addPrebuiltUnit(unit:Unit) {
+    addPrebuiltUnit(unit: Unit) {
         let offer = this.offerContent;
 
-        if (offer.prebuiltUnits) {
-            let existingUnitIndex = offer.prebuiltUnits.findIndex(u => u.type == unit.type);
+        if (offer.units) {
+            const existingUnitIndex = offer.units.findIndex(u => u.type === unit.type);
             if (existingUnitIndex >= 0) {
-                offer.prebuiltUnits[existingUnitIndex].amount = this.offerContent.prebuiltUnits[existingUnitIndex].amount + 1;
+                offer.units[existingUnitIndex].amount = this.offerContent.units[existingUnitIndex].amount + 1;
             } else {
                 let u = new UnitOfferContent();
                 u.type = unit.type;
-                u.name = unit.name; 
+                u.name = unit.name;
                 u.level = 1;
                 u.amount = 1;
-                offer.prebuiltUnits.push(u);
+                offer.units.push(u);
             }
         } else  {
-            offer.prebuiltUnits = [];
+            offer.units = [];
             let u = new UnitOfferContent();
             u.type = unit.type;
-            u.name = unit.name; 
+            u.name = unit.name;
             u.level = 1;
             u.amount = 1;
-            offer.prebuiltUnits.push(u);
+            offer.units.push(u);
         }
 
         this.offerContent = offer;
         this.offerContentSubject.next(this.offerContent);
     }
 
-    removePrebuiltUnit(unit:Unit) {
+    removePrebuiltUnit(unit: Unit) {
         let offer = this.offerContent;
 
-        if (offer.prebuiltUnits) {
-            let existingUnitIndex = offer.prebuiltUnits.findIndex(u => u.type == unit.type);
+        if (offer.units) {
+            let existingUnitIndex = offer.units.findIndex(u => u.type === unit.type);
             if (existingUnitIndex >= 0) {
-                if (offer.prebuiltUnits[existingUnitIndex].amount == 1) {
-                    offer.prebuiltUnits.splice(existingUnitIndex, 1);
-                } else if (offer.prebuiltUnits[existingUnitIndex].amount > 1) {
-                    offer.prebuiltUnits[existingUnitIndex].amount = this.offerContent.prebuiltUnits[existingUnitIndex].amount - 1;
+                if (offer.units[existingUnitIndex].amount === 1) {
+                    offer.units.splice(existingUnitIndex, 1);
+                } else if (offer.units[existingUnitIndex].amount > 1) {
+                    offer.units[existingUnitIndex].amount = this.offerContent.units[existingUnitIndex].amount - 1;
                 }
             }
 
@@ -70,11 +70,11 @@ export class CreateOfferService {
         }
     }
 
-    addSkuToContent(sku:string): void {
+    addSkuToContent(sku: string): void {
         let offer = this.offerContent;
-        
+
         if (offer.skus && offer.skus.has(sku)) {
-            let currentQuantity = offer.skus.get(sku)
+            let currentQuantity = offer.skus.get(sku);
             offer.skus.set(sku, currentQuantity + 1);
         } else if (offer.skus && !offer.skus.has(sku)) {
             offer.skus.set(sku, 1);
@@ -87,11 +87,11 @@ export class CreateOfferService {
         this.offerContentSubject.next(this.offerContent);
     }
 
-    removeSkuFromContent(sku:string): void { 
+    removeSkuFromContent(sku: string): void {
         let offer = this.offerContent;
-        
+
         if (offer.skus && offer.skus.has(sku)) {
-            let currentQuantity = offer.skus.get(sku)
+            let currentQuantity = offer.skus.get(sku);
             if (currentQuantity <= 1) {
                 offer.skus.delete(sku);
             } else {
@@ -103,6 +103,6 @@ export class CreateOfferService {
         this.offerContentSubject.next(this.offerContent);
     }
 
-    removeUnitUnlockFromContent(sku:String): void {
+    removeUnitUnlockFromContent(sku: String): void {
     }
 }

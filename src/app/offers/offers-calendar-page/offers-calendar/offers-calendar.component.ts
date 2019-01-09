@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { OfferService } from '../../../core/services';
-import { Offer } from '../../../core/models';
+import { OfferSummary } from '../../../core/models';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

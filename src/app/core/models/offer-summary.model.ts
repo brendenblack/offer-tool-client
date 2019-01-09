@@ -1,4 +1,4 @@
-export class Offer {
+export class OfferSummary {
     offerCode: string;
     title: string;
     startTime: number;

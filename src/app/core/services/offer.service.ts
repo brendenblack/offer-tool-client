@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ApiService } from './api.service';
-import { Offer, CreateOffer } from '../models';
+import { OfferSummary, Offer, OfferDisplayOptions, OfferEntity } from '../models';
 import { map } from 'rxjs/operators';
 import { OfferCatalog } from '../models/offer-catalog.model';
 import { WcOffersApiService } from './wc-offers-api.service';
@@ -10,10 +10,29 @@ import { WcOffersApiService } from './wc-offers-api.service';
 export class OfferService {
     constructor(private apiService: ApiService, private wcOffersApiService: WcOffersApiService) {}
 
-    getOffers(active: boolean = false): Observable<Offer[]> {
+    getAllOffers(active: boolean = false): Observable<OfferSummary[]> {
         return this.apiService.get(`/offers?active=${active}`).pipe(map(data => {
             return data.offers;
         }));
+    }
+
+    mapOfferToEntity(offer: Offer): OfferEntity {
+        let entity = new OfferEntity();
+        entity.id = offer.id;
+        entity.offerCode = offer.code;
+        entity.title = offer.title;
+        entity.description = offer.description;
+        entity.iconTitle = offer.iconTitle;
+        entity.iconDescription = offer.iconDescription;
+        entity.cost = offer.cost;
+        entity.fullCost = offer.fullCost;
+        entity.costSku = offer.costSku;
+        entity.startTime = offer.startDate.getTime() / 1000;
+        entity.endTime = offer.endDate.getTime() / 1000;
+        entity.duration = offer.duration;
+        entity.modifiedTime = new Date().getTime() / 1000;
+
+        return entity;
     }
 
     getCloneSql(offers: Map<number, String>): Observable<String> {
@@ -27,8 +46,11 @@ export class OfferService {
         }));
     }
 
-    getCloneDetails(ids: number[]): Observable<CreateOffer[]> {
-        return this.apiService.get(`/offers/clone?ids=${ids.join(',')}`).pipe(map(data => {
+    getOffers(ids: number[]): Observable<OfferCloneSkeleton[]> {
+        return this.apiService.get(`/offers/clone?ids=${ids.join(',')}`).pipe(map((data: OfferCloneDetailsResponse) => {
+            console.log('clone details');
+            console.log(data);
+            // TODO: mapping like this probably won't work
             return data.offers;
         }));
     }
@@ -40,6 +62,28 @@ export class OfferService {
     }
 }
 
+export interface OfferCloneDetailsResponse {
+    offers: OfferCloneSkeleton[];
+}
+
+export interface OfferCloneSkeleton {
+    id: number;
+    title: string;
+    description: string;
+    iconTitle: string;
+    iconDescription: string;
+    displayedItems: string;
+    content: string;
+    displayOptions: string;
+    cost: number;
+    fullCost: number;
+    costSku: string;
+    duration: number;
+    templateId: number;
+    priority: number;
+    prerequisite: string;
+    maxQuantity: number;
+}
 
 export class CloneOfferCommand {
     targets: CloneOfferTarget[] = [];

@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { OfferService } from '../../../core/services';
-import { Offer } from '../../../core/models';
+import { OfferSummary } from '../../../core/models';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
 const equals = (one: NgbDateStruct, two: NgbDateStruct) =>
@@ -24,9 +24,9 @@ export class OffersListComponent implements OnInit {
   constructor(private offersService: OfferService) {
   }
 
-  private offers: Offer[] = [];
+  private offers: OfferSummary[] = [];
   private displayedOfferCount: number = this.offers.length;
-  private allOffers: Offer[] = [];
+  private allOffers: OfferSummary[] = [];
   private allOfferCount: number = this.allOffers.length;
   private startDate: number;
   private endDate: number;
@@ -39,9 +39,9 @@ export class OffersListComponent implements OnInit {
   private sortDirection: String = 'descending';
   private sortBy: String = 'Start time';
 
-  selectedOffers: Offer[] = [];
+  selectedOffers: OfferSummary[] = [];
 
-  @Output() selected = new EventEmitter<Offer>();
+  @Output() selected = new EventEmitter<OfferSummary>();
 
 
   ngOnInit() {
@@ -49,7 +49,7 @@ export class OffersListComponent implements OnInit {
   }
 
   getOffers() {
-    this.offersService.getOffers(this.onlyActive).subscribe(data => {
+    this.offersService.getAllOffers(this.onlyActive).subscribe(data => {
       console.log(data);
       this.allOffers = data;
 
@@ -120,7 +120,7 @@ export class OffersListComponent implements OnInit {
     }
   }
 
-  updateCloneList(offer: Offer) {
+  updateCloneList(offer: OfferSummary) {
     this.selected.emit(offer);
     // const index = this.selectedOffers.findIndex(o => o === offer);
     // if (index >= 0) {
