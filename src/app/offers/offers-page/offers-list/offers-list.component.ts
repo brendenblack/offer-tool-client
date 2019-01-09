@@ -33,7 +33,7 @@ export class OffersListComponent implements OnInit {
 
   // Filter details
   private onlyActive = false;
-  private displayMode: String = 'table';
+  private displayMode: 'box' | 'table' = 'box'; // 'table';
   private filterString: String;
   private orderByFields: String[] = [ 'Revenue', 'Start time', 'End time', 'Cohort size', 'Unique purchasers', 'Cost' ];
   private sortDirection: String = 'descending';
@@ -45,24 +45,57 @@ export class OffersListComponent implements OnInit {
 
 
   ngOnInit() {
-    // this.getOffers();
+    // this.startDate = 0;
+    // this.endDate = 1557148793;
+
+    // let o1 = new OfferSummary();
+    // o1.offerCode = 'Jan19TestCode';
+    // o1.id = 1;
+    // o1.title = 'Test Your Offers';
+    // o1.cohortSize = 123457;
+    // o1.uniquePurchased = 1745;
+    // o1.cost = 99;
+    // o1.fullCost = 300;
+    // o1.costSku = 'gold';
+    // o1.approximateRevenue = o1.cost * 0.07 * o1.uniquePurchased;
+    // o1.startTime = new Date().getTime() / 1000;
+    // o1.endTime = new Date().getTime() / 1000 + 86400;
+    // o1.active = true;
+    // o1.duration = 8640;
+
+    // let o2 = new OfferSummary();
+    // o2.offerCode = 'Jan19TestCode2';
+    // o2.id = 1;
+    // o2.title = 'Test Your Other Offers';
+    // o2.cohortSize = 123457;
+    // o2.uniquePurchased = 2459;
+    // o2.cost = 99;
+    // o2.fullCost = 300;
+    // o2.costSku = 'gold';
+    // o2.approximateRevenue = o2.cost * 0.07 * o2.uniquePurchased;
+    // o2.startTime = new Date().getTime() / 1000;
+    // o2.endTime = new Date().getTime() / 1000 + 86400;
+    // o2.active = true;
+    // o2.duration = 8640;
+
+    // this.allOffers.push(o1, o2);
+    // this.offers = this.allOffers;
+
+    this.getOffers();
   }
 
   getOffers() {
     this.offersService.getAllOffers(this.onlyActive).subscribe(data => {
-      console.log(data);
       this.allOffers = data;
-
       const startDates = this.allOffers.map(( { startTime }) => startTime );
       this.startDate = Math.min(...startDates);
       const endDates = this.allOffers.map(( { endTime}) => endTime);
       this.endDate = Math.max(...endDates);
-
       this.filterOffers();
     });
   }
 
-  setDisplayMode(displayMode: String) {
+  setDisplayMode(displayMode: 'box' | 'table') {
     this.displayMode = displayMode;
   }
 

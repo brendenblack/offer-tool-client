@@ -1,4 +1,4 @@
-.activeOffer { background-color: green;}
+/* .activeOffer { background-color: green;} */
 
 
 a .card:hover { background-color: purple;}
@@ -27,3 +27,6 @@ a .card:hover { background-color: purple;}
   table {
     font-size: 12px;
   }
+
+
+  .offer-box-item:hover { background-color: #f8f9fa; }
