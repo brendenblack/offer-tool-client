@@ -1,4 +1,4 @@
-<section id="offers-list-section" class="border">
+<section id="offers-list-section" class="border rounded mt-2">
 <div class="row" style="margin: auto;">
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom w-100">
     <!-- <ngb-datepicker #dp (select)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t">
@@ -20,29 +20,30 @@
       </div> -->
 
 
+        <div class="row w-100">
+          <div class="col-md-auto">
+              <span class="btn-group" role="group" aria-label="Display modes" id="displayModeGroup">
+                <button type="button" class="btn btn-sm" (click)="setDisplayMode('box')" [ngClass]="{ 'btn-success': displayMode == 'box' }" data-toggle="tooltip" data-placement="top" title="Grid view"><i class="fas fa-th"></i></button>
+                <button type="button" class="btn btn-sm" (click)="setDisplayMode('table')" [ngClass]="{ 'btn-success': displayMode == 'table' }" data-toggle="tooltip" data-placement="top" title="List view"><i class="fas fa-bars"></i></button>
+              </span>
+          </div>
+          <div class="col">
+            <input type="text" class="form-control form-control-sm" placeholder="Search ..." [(ngModel)]="filterString" name="filterString" (input)="filterOffers()" />
+          </div>
 
-        <span class="navbar-text mr-2">Display mode</span>
-        <span class="btn-group" role="group" aria-label="Display modes">
-            <button type="button" class="btn" (click)="setDisplayMode('box')" [ngClass]="{ 'btn-success': displayMode == 'box' }" data-toggle="tooltip" data-placement="top" title="Grid view"><i class="fas fa-th"></i></button>
-            <button type="button" class="btn" (click)="setDisplayMode('table')" [ngClass]="{ 'btn-success': displayMode == 'table' }" data-toggle="tooltip" data-placement="top" title="List view"><i class="fas fa-bars"></i></button>
-        </span>
-
-
-
-        <input type="text" class="form-control" placeholder="Search ..." [(ngModel)]="filterString" name="filterString" (input)="filterOffers()" />
-
-
-        <span class="navbar-text mr-2">Sort by</span>
-        <select class="form-control form-control" [(ngModel)]="sortBy" (change)="filterOffers()">
-          <option *ngFor="let opt of orderByFields">{{ opt }}</option>
-        </select>
-
-        <span class="btn-group" role="group" aria-label="Display modes">
-            <button type="button" class="btn" (click)="setSortDirection('ascending')" [ngClass]="{ 'btn-success': sortDirection == 'ascending' }" data-toggle="tooltip" data-placement="top" title="Grid view"><i class="fas fa-sort-amount-up"></i></button>
-            <button type="button" class="btn" (click)="setSortDirection('descending')" [ngClass]="{ 'btn-success': sortDirection == 'descending' }" data-toggle="tooltip" data-placement="top" title="List view"><i class="fas fa-sort-amount-down"></i></button>
-        </span>
-
-
+          <div class="col-md-3">
+               <div class="input-group">
+              <select class="form-control form-control-sm" [(ngModel)]="sortBy" (change)="filterOffers()" >
+                  <option *ngFor="let opt of orderByFields">{{ opt }}</option>
+                </select>
+        
+                <span class="btn-group" role="group" aria-label="Display modes">
+                    <button type="button" class="btn btn-sm" (click)="setSortDirection('ascending')" [ngClass]="{ 'btn-success': sortDirection == 'ascending' }" data-toggle="tooltip" data-placement="top" title="Grid view"><i class="fas fa-sort-amount-up"></i></button>
+                    <button type="button" class="btn btn-sm" (click)="setSortDirection('descending')" [ngClass]="{ 'btn-success': sortDirection == 'descending' }" data-toggle="tooltip" data-placement="top" title="List view"><i class="fas fa-sort-amount-down"></i></button>
+                </span>
+              </div>
+          </div>
+        </div>
     </nav>
 </div>
 

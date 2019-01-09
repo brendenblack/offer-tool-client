@@ -7,7 +7,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable()
-export class WcOffersService {
+export class WcOffersApiService {
   constructor(
     private http: HttpClient,
     // private jwtService: JwtService

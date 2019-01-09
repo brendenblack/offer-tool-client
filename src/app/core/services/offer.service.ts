@@ -4,11 +4,11 @@ import { ApiService } from './api.service';
 import { Offer, CreateOffer } from '../models';
 import { map } from 'rxjs/operators';
 import { OfferCatalog } from '../models/offer-catalog.model';
-import { WcOffersService } from './wcoffers.service';
+import { WcOffersApiService } from './wc-offers-api.service';
 
 @Injectable()
 export class OfferService {
-    constructor(private apiService: ApiService, private wcOffersApiService: WcOffersService) {}
+    constructor(private apiService: ApiService, private wcOffersApiService: WcOffersApiService) {}
 
     getOffers(active: boolean = false): Observable<Offer[]> {
         return this.apiService.get(`/offers?active=${active}`).pipe(map(data => {

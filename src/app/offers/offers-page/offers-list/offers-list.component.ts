@@ -45,7 +45,7 @@ export class OffersListComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getOffers();
+    // this.getOffers();
   }
 
   getOffers() {

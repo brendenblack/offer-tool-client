@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ApiService, OfferService, WcOffersService } from './services';
+import { ApiService, OfferService, WcOffersApiService } from './services';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpHeadersInterceptor } from './interceptors';
 
@@ -12,7 +12,7 @@ import { HttpHeadersInterceptor } from './interceptors';
   providers: [
     ApiService,
     OfferService,
-    WcOffersService,
+    WcOffersApiService,
     { provide: HTTP_INTERCEPTORS, useClass: HttpHeadersInterceptor, multi: true }
   ]
 })
