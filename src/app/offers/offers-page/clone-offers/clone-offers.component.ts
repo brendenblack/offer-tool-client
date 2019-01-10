@@ -87,7 +87,7 @@ export class CloneOffersComponent implements DoCheck {
             title: o.title.replace('\'', '\'\''),
             desc: o.description.replace('\'', '\'\'') || '',
             icon_title: o.iconTitle.replace('\'', '\'\'') || '',
-            icon_desc: o.iconDescription.replace('\'', '\'\'') || '',
+            icon_desc: (o.iconDescription) ? o.iconDescription.replace('\'', '\'\'') : '',
             COST: o.cost,
             COST_SKU: o.costSku,
             DISPLAY_OPTIONS: o.displayOptions,
