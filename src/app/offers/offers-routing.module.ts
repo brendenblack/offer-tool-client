@@ -11,17 +11,17 @@ const routes: Routes = [
     component: OffersPageComponent,
   },
   {
+    path: 'offers/create',
+    component: OfferCreatePageComponent
+  },
+  {
     path: 'offers/:id',
     component: OfferDetailsPageComponent
   },
   {
     path: 'calendar',
     component: OffersCalendarPageComponent
-  },
-  {
-    path: 'create',
-    component: OfferCreatePageComponent
-  }
+  }  
 ];
 
 @NgModule({

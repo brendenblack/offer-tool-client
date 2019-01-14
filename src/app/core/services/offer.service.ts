@@ -57,6 +57,7 @@ export class OfferService {
 
     getCatalog(): Observable<OfferCatalog> {
         return this.wcOffersApiService.get(`/catalog`).pipe(map(data => {
+            console.log(data);
             return data;
         }));
     }

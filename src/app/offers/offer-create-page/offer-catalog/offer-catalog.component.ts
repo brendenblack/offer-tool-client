@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CreateOfferService } from '../create-offer.service';
 import { OfferService } from 'src/app/core/services/offer.service';
-import { OfferCatalog, Unit } from 'src/app/core/models/offer-catalog.model';
+import { OfferCatalog, Unit, Tech } from 'src/app/core/models/offer-catalog.model';
+import { TechSearchPipe } from './tech-search.pipe';
 
 @Component({
   selector: 'app-offer-catalog',
@@ -10,13 +11,36 @@ import { OfferCatalog, Unit } from 'src/app/core/models/offer-catalog.model';
 })
 export class OfferCatalogComponent implements OnInit {
 
-  constructor(private offersService: OfferService, private createOfferService:CreateOfferService) { }
+  constructor(private createOfferService:CreateOfferService) { }
 
-  private catalog: OfferCatalog
+  @Input() catalog: OfferCatalog
+  private unitTags:Set<string> = new Set();
 
   displayMode: String = 'card';
 
-  unitTags:Set<string> = new Set();
+  private _isShowSingleUse = false;
+  get isShowSingleUse(): boolean {
+    return this._isShowSingleUse;
+  }
+  set isShowSingleUse(val:boolean) {
+    this._isShowSingleUse = val;
+  }
+
+  private _isShowUnique = true;
+  get isShowUnique(): boolean {
+    return this._isShowUnique;
+  }
+  set isShowUnique(val: boolean) {
+    this._isShowUnique = val;
+  }
+
+  private _isShowHeroes = true;
+  get isShowHeroes(): boolean {
+    return this._isShowHeroes;
+  }
+  set isShowHeroes(val: boolean) {
+    this._isShowHeroes = val;
+  }
 
   get units():Unit[] {
     if (this.catalog) {
@@ -29,15 +53,18 @@ export class OfferCatalogComponent implements OnInit {
     }
   }
 
-  private visibleTab: 'units' | 'buildings' = 'units';
+  get tech(): Tech[] {
+    if (this.catalog) {
+      return this.catalog.tech;
+    } else {
+      return [];
+    }
+  }
   
-  ngOnInit() {
-    // this.offersService.getCatalog().subscribe(data => {
-    //   this.catalog = data;
+  private techFilter: string = "";
 
-    //   this.catalog.units.forEach(u => u.tags.forEach(t => this.unitTags.add(t)));
-    //   console.log(this.unitTags);
-    // });
+  ngOnInit() {
+    this.catalog.units.forEach(u => u.tags.forEach(t => this.unitTags.add(t)));
   }
 
 

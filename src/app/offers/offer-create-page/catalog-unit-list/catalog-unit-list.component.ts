@@ -38,8 +38,11 @@ export class CatalogUnitListComponent implements OnInit {
     return (this.unlockSku != null && this.unlockSku != undefined);
   }
 
+  /** Indicates whether a given unit is able to add a prebuilt. Single use units are never eligible. */
   get canAddPrebuilt(): boolean {
-    return (this.maxBuildableSku) != null;
+    // TODO: what other rules govern whether we can -- or should -- grant
+    // a prebuilt unit?
+    return !this.unit.tags.some(t => t === 'SINGLE_USE');
   }
 
   get canAddMaxBuildable(): boolean {

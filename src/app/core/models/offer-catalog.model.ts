@@ -1,20 +1,20 @@
 export class OfferCatalog {
-  units: Unit[];
+  units: Unit[] = [];
+  tech: Tech[] = [];
 }
 
-export interface Sku {
+export class Sku {
     code: string;
 }
 
-export interface Item {
+export class Item {
     code: string;
     title: string;
     description: string;
     storeIconName: string;
-    storeIconNameSmall: string;
 }
 
-export interface GrantableItem {
+export class GrantableItem {
     sku: Sku;
     item: Item;
 }
@@ -26,4 +26,13 @@ export class Unit {
     unlockSku: GrantableItem;
     maxbuildableSku: GrantableItem;
     tags: string[] = [];
+}
+
+export class Tech {
+    categoryId: number;
+    name: string;
+    description: string;
+    limit: number;
+    slot: string;
+    grantable: GrantableItem;
 }

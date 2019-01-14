@@ -1,0 +1,42 @@
+<div class="border-bottom border-light mb-1 unit-list">
+    <div class="row ">
+      <div class="col">
+        <p class="m-0"><strong>{{ tech.name }}</strong> - {{ tech.categoryId }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="row">
+          <div class="col">
+            <span class="badge badge-pill badge-info mr-1 px-2 py-1">{{ tech.slot }}</span>
+            <!-- <span class="badge badge-pill badge-secondary mr-1 px-2 py-1" *ngFor="let t of unit.tags">{{ t }}</span> -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="m-0">{{ tech.description }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="row">
+            <div class="col">Content:</div>
+            <div class="col-sm-auto">
+              <button class="btn btn-link py-0 px-2" title="Add {{ tech.categoryId }}. {{ tech.name }} to offer content" [disabled]="!canAddToOfferContent"  (click)="addToOfferContent()"><i class="fas fa-plus-square"></i></button>
+              <!-- <button class="btn btn-link py-0 px-2" [disabled]="!canAddUnlock" (click)="addUnlock()" title='Add an unlock for {{unit.name}}'><i class="fas fa-lock-open"></i></button>
+              <button class="btn btn-link py-0 px-2" [disabled]="!canAddMaxBuildable" (click)="addMaxBuildable()" title='Add a maxbuildable for {{unit.name}}'><i class="fas fa-users"></i></button>
+              <button class="btn btn-link py-0 px-2" [disabled]="!canAddPrebuilt" (click)="addPrebuilt()" title='Add a prebuilt {{unit.name}}'><i class="fas fa-male"></i></button> -->
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">Display:</div>
+            <div class="col-sm-auto">
+                <button class="btn btn-link py-0 px-2" title="Add {{ tech.categoryId }}. {{ tech.name }} to displayed items" [disabled]="!canAddToDisplayItems" (click)="addToDisplayItems()"><i class="fas fa-plus-square"></i></button>
+              <!-- <button class="btn btn-link py-0 px-2" [disabled]="!canAddUnlock" (click)="addUnlock()"><i class="fas fa-lock-open"></i></button>
+              <button class="btn btn-link py-0 px-2" [disabled]="!canAddMaxBuildable" (click)="addMaxBuildable()"><i class="fas fa-users"></i></button> -->
+            </div>
+          </div>
+      </div>
+    </div>
+
+</div>

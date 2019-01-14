@@ -5,7 +5,19 @@
     </div>
 
     <div class="col-lg offset-lg-4 border-left border-secondary p-0" style="height: 3000px;">
-      <app-offer-catalog></app-offer-catalog>
+      
+      <div *ngIf="catalog; else loadingCatalog">
+        <app-offer-catalog [catalog]="catalog"></app-offer-catalog>
+      </div>
+
+      <ng-template #loadingCatalog>
+        <div class="w-100 text-center pt-5">
+          <h2>Loading Catalog...</h2>
+            <i class="fas fa-spinner fa-2x fa-spin"></i>
+        </div>
+
+      </ng-template>
+    
     </div>
   </div>
 </div>

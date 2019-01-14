@@ -17,6 +17,10 @@ import { OfferCreateComponent } from './offer-create-page/offer-create/offer-cre
 import { CardUnitComponent } from './offer-create-page/card-unit/card-unit.component';
 import { SharedModule } from '../shared/shared.module';
 import { CatalogUnitListComponent } from './offer-create-page/catalog-unit-list/catalog-unit-list.component';
+import { CatalogTechListComponent } from './offer-create-page/catalog-tech-list/catalog-tech-list.component';
+import { TechSearchPipe } from './offer-create-page/offer-catalog/tech-search.pipe';
+import { UnitFilterPipe } from './offer-create-page/offer-catalog/unit-filter.pipe';
+import { UnitSearchPipe } from './offer-create-page/offer-catalog/unit-search.pipe';
 
 @NgModule({
   imports: [
@@ -38,7 +42,12 @@ import { CatalogUnitListComponent } from './offer-create-page/catalog-unit-list/
     OfferCatalogComponent,
     OfferCreateComponent,
     CardUnitComponent,
-    CatalogUnitListComponent],
+    CatalogUnitListComponent,
+    CatalogTechListComponent,
+    TechSearchPipe,
+    UnitFilterPipe,
+    UnitSearchPipe
+  ],
   providers: [ OfferService ]
 })
 export class OffersModule { }
