@@ -16,8 +16,6 @@ export class OfferCreateComponent implements OnInit {
     this.offer = new Offer();
 
     this.offerContentSubscription = createOfferService.offerContent$.subscribe(content => {
-      console.log('received content update');
-      console.log(content);
       this.offer.content = content;
     });
 
@@ -65,7 +63,6 @@ export class OfferCreateComponent implements OnInit {
   }
 
   decrementSku(sku: string): void {
-    console.log('decrementing sku ' + sku);
     this.createOfferService.removeSkuFromContent(sku);
   }
 
