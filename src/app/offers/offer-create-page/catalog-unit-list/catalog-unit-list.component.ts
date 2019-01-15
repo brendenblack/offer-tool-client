@@ -13,40 +13,54 @@ export class CatalogUnitListComponent implements OnInit {
 
   @Input() unit: Unit;
   private maxBuildableSku: string;
+  private canAddMaxBuildable: boolean;
+  private canAddUnlock: boolean;
   private unlockSku: string;
+  private maxBuildableItem: string;
+  private canDisplayMaxBuildable: boolean;
+  private unlockItem: string;
+  private canDisplayUnlock: boolean;
+
 
   ngOnInit() {
     if (this.unit.maxbuildableSku != null) {
       if (this.unit.maxbuildableSku.sku != null) {
         this.maxBuildableSku = this.unit.maxbuildableSku.sku.code;
-      } else if (this.unit.maxbuildableSku.item != null) {
-        this.maxBuildableSku = this.unit.maxbuildableSku.item.code;
+      } 
+
+      if (this.unit.maxbuildableSku.item != null) {
+        this.maxBuildableItem = this.unit.maxbuildableSku.item.code;
+        if (!this.unit.maxbuildableSku) {
+          // this case relies on how some maxbuildable units do not exist in sku definitions,
+        // but will still work to grant the unit... sometimes.
+          this.maxBuildableSku = this.unit.maxbuildableSku.item.code;
+        }
       }
     }
+
+    this.canAddMaxBuildable = this.maxBuildableSku != null;
+    this.canDisplayMaxBuildable = this.maxBuildableItem != null;
 
     if (this.unit.unlockSku != null) {
       if (this.unit.unlockSku.sku != null) {
         this.unlockSku = this.unit.unlockSku.sku.code;
       } else if (this.unit.unlockSku.item != null) {
         this.unlockSku = this.unit.unlockSku.item.code;
+        this.unlockItem = this.unit.unlockSku.item.code;
       }
     }
+
+    this.canAddUnlock = (this.unlockSku != null && this.unlockSku !== undefined);
+    this.canDisplayUnlock = this.unlockItem != null;
+
   }
 
-
-  get canAddUnlock(): boolean {
-    return (this.unlockSku != null && this.unlockSku !== undefined);
-  }
 
   /** Indicates whether a given unit is able to add a prebuilt. Single use units are never eligible. */
   get canAddPrebuilt(): boolean {
     // TODO: what other rules govern whether we can -- or should -- grant
     // a prebuilt unit?
     return !this.unit.tags.some(t => t === 'SINGLE_USE');
-  }
-
-  get canAddMaxBuildable(): boolean {
-    return (this.maxBuildableSku != null);
   }
 
   addUnlock() {
