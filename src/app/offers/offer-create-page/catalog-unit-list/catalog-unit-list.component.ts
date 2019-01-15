@@ -11,6 +11,10 @@ export class CatalogUnitListComponent implements OnInit {
 
   constructor(private createService: CreateOfferService) { }
 
+  @Input() unit: Unit;
+  private maxBuildableSku: string;
+  private unlockSku: string;
+
   ngOnInit() {
     if (this.unit.maxbuildableSku != null) {
       if (this.unit.maxbuildableSku.sku != null) {
@@ -20,7 +24,7 @@ export class CatalogUnitListComponent implements OnInit {
       }
     }
 
-    if (this.unit.unlockSku != null){
+    if (this.unit.unlockSku != null) {
       if (this.unit.unlockSku.sku != null) {
         this.unlockSku = this.unit.unlockSku.sku.code;
       } else if (this.unit.unlockSku.item != null) {
@@ -29,13 +33,9 @@ export class CatalogUnitListComponent implements OnInit {
     }
   }
 
-  @Input() unit: Unit
-
-  private maxBuildableSku: string;
-  private unlockSku: string;
 
   get canAddUnlock(): boolean {
-    return (this.unlockSku != null && this.unlockSku != undefined);
+    return (this.unlockSku != null && this.unlockSku !== undefined);
   }
 
   /** Indicates whether a given unit is able to add a prebuilt. Single use units are never eligible. */

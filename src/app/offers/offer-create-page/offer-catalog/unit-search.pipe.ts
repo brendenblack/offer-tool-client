@@ -7,9 +7,11 @@ export class UnitSearchPipe implements PipeTransform {
     if(searchText) {
       return units.filter((t) => {
         return (t.name && t.name.toUpperCase().includes(searchText.toUpperCase()))
-          || t.tags.some(t => t.includes(searchText.toUpperCase()))
-          || t.type.toString().includes(searchText)
-      }).sort((a,b) => a.type < b.type ? 1 : a.type > b.type ? -1 : 0);
+          || t.tags.some(tag => {
+            return tag.includes(searchText.toUpperCase());
+          })
+          || t.type.toString().includes(searchText);
+      }).sort((a, b) => a.type < b.type ? 1 : a.type > b.type ? -1 : 0);
     } else {
       return units;
     }

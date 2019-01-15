@@ -11,10 +11,10 @@ import { TechSearchPipe } from './tech-search.pipe';
 })
 export class OfferCatalogComponent implements OnInit {
 
-  constructor(private createOfferService:CreateOfferService) { }
+  constructor(private createOfferService: CreateOfferService) { }
 
-  @Input() catalog: OfferCatalog
-  private unitTags:Set<string> = new Set();
+  @Input() catalog: OfferCatalog;
+  private unitTags: Set<string> = new Set();
 
   displayMode: String = 'card';
 
@@ -22,7 +22,7 @@ export class OfferCatalogComponent implements OnInit {
   get isShowSingleUse(): boolean {
     return this._isShowSingleUse;
   }
-  set isShowSingleUse(val:boolean) {
+  set isShowSingleUse(val: boolean) {
     this._isShowSingleUse = val;
   }
 
@@ -42,13 +42,12 @@ export class OfferCatalogComponent implements OnInit {
     this._isShowHeroes = val;
   }
 
-  get units():Unit[] {
+  get units(): Unit[] {
     if (this.catalog) {
       return this.catalog.units.filter((u) => {
-        return !u.tags.find(t => t === "SINGLE_USE");
-      }).sort((a,b) => a.type < b.type ? 1 : a.type > b.type ? -1 : 0);
-    }
-    else {
+        return !u.tags.find(t => t === 'SINGLE_USE');
+      }).sort((a, b) => a.type < b.type ? 1 : a.type > b.type ? -1 : 0);
+    } else {
       return [];
     }
   }
@@ -60,8 +59,6 @@ export class OfferCatalogComponent implements OnInit {
       return [];
     }
   }
-  
-  private techFilter: string = "";
 
   ngOnInit() {
     this.catalog.units.forEach(u => u.tags.forEach(t => this.unitTags.add(t)));

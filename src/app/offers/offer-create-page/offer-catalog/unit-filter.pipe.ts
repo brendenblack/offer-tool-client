@@ -27,6 +27,6 @@ export class UnitFilterPipe implements PipeTransform {
     }
 
     return filteredUnits;
-    
+
   }
 }

@@ -11,6 +11,10 @@ export class CardUnitComponent implements OnInit {
 
   constructor(private createService: CreateOfferService) { }
 
+  @Input() unit: Unit;
+
+  private maxBuildableSku: string;
+
   ngOnInit() {
     if (this.unit.maxbuildableSku != null) {
       if (this.unit.maxbuildableSku.sku != null) {
@@ -20,10 +24,6 @@ export class CardUnitComponent implements OnInit {
       }
     }
   }
-
-  @Input() unit: Unit
-
-  private maxBuildableSku: string;
 
   get canAddUnlock(): boolean {
     return (this.unit.unlockSku && this.unit.unlockSku.sku && this.unit.unlockSku.sku.code || null) != null;
@@ -42,7 +42,7 @@ export class CardUnitComponent implements OnInit {
   }
 
   addMaxBuildable() {
-    console.log('adding maxbuildable for ' + this.unit.type); 
+    console.log('adding maxbuildable for ' + this.unit.type);
   }
 
   addPrebuilt() {

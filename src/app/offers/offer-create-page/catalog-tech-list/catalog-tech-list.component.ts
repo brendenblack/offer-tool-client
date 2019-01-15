@@ -12,7 +12,7 @@ export class CatalogTechListComponent implements OnInit {
   constructor(private createService: CreateOfferService) { }
 
   @Input() tech: Tech;
-  
+
   ngOnInit() {
   }
 
@@ -21,7 +21,7 @@ export class CatalogTechListComponent implements OnInit {
   }
 
   addToDisplayItems() {
-    
+    // TODO
   }
 
   get canAddToOfferContent(): boolean {

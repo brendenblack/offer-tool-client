@@ -8,14 +8,10 @@ export class TechSearchPipe implements PipeTransform {
       return tech.filter((t) => {
         return (t.name && t.name.toUpperCase().includes(searchText.toUpperCase()))
           || (t.categoryId && t.categoryId.toString() === searchText)
-          || (t.slot && t.slot.toUpperCase().includes(searchText.toUpperCase()))
-      }); //.sort((a,b) => a.type < b.type ? 1 : a.type > b.type ? -1 : 0);
+          || (t.slot && t.slot.toUpperCase().includes(searchText.toUpperCase()));
+      });
     } else {
       return tech;
-      
     }
-    // return categories.filter(function(category){
-    //   return category.CategoryName.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
-    // })
   }
 }
