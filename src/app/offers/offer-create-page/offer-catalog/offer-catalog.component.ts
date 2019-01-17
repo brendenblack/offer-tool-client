@@ -44,7 +44,7 @@ export class OfferCatalogComponent implements OnInit {
 
   get units(): Unit[] {
     if (this.catalog) {
-      return this.catalog.units.filter((u) => {
+      return this.catalog.factionUnits.filter((u) => {
         return !u.tags.find(t => t === 'SINGLE_USE');
       }).sort((a, b) => a.type < b.type ? 1 : a.type > b.type ? -1 : 0);
     } else {
@@ -61,7 +61,7 @@ export class OfferCatalogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.catalog.units.forEach(u => u.tags.forEach(t => this.unitTags.add(t)));
+    this.catalog.factionUnits.forEach(u => u.tags.forEach(t => this.unitTags.add(t)));
   }
 
 

@@ -1,5 +1,5 @@
 export class OfferCatalog {
-  units: Unit[] = [];
+  factionUnits: Unit[] = [];
   tech: Tech[] = [];
 }
 
@@ -23,8 +23,8 @@ export class Unit {
     type: number;
     name: string;
     description: string;
-    unlockSku: GrantableItem;
-    maxbuildableSku: GrantableItem;
+    unlock: GrantableItem;
+    maxbuildable: GrantableItem;
     tags: string[] = [];
 }
 

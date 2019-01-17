@@ -16,8 +16,8 @@ export class CreateOfferService {
 
 
     private displayedItems = new OfferDisplay();
-    private offerDisplayedItems = new BehaviorSubject<OfferDisplay>(this.displayedItems);
-    offerDisplayedItems$ = this.offerDisplayedItems.asObservable();
+    private displayedItemsSubject = new BehaviorSubject<OfferDisplay>(this.displayedItems);
+    offerDisplayedItems$ = this.displayedItemsSubject.asObservable();
 
     addUnit(type: number) {
         this.unitTypes.next(type);
@@ -105,13 +105,15 @@ export class CreateOfferService {
 
     addItemToDisplay(itemCode: string): void {
         let display = this.displayedItems;
-
         let existingItem = display.items.find(i => i.item === itemCode);
         if (existingItem) {
             existingItem.amount += 1;
         } else {
             display.items.push({ item: itemCode, amount: 1, order: display.items.length + 1 });
         }
+
+        this.displayedItems = display;
+        this.displayedItemsSubject.next(this.displayedItems);
     }
 
 }

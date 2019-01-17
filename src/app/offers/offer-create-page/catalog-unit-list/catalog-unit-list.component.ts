@@ -20,20 +20,21 @@ export class CatalogUnitListComponent implements OnInit {
   private canDisplayMaxBuildable: boolean;
   private unlockItem: string;
   private canDisplayUnlock: boolean;
+  private canAddPrebuilt: boolean;
 
 
   ngOnInit() {
-    if (this.unit.maxbuildableSku != null) {
-      if (this.unit.maxbuildableSku.sku != null) {
-        this.maxBuildableSku = this.unit.maxbuildableSku.sku.code;
-      } 
+    if (this.unit.maxbuildable != null) {
+      if (this.unit.maxbuildable.sku != null) {
+        this.maxBuildableSku = this.unit.maxbuildable.sku.code;
+      }
 
-      if (this.unit.maxbuildableSku.item != null) {
-        this.maxBuildableItem = this.unit.maxbuildableSku.item.code;
-        if (!this.unit.maxbuildableSku) {
+      if (this.unit.maxbuildable.item != null) {
+        this.maxBuildableItem = this.unit.maxbuildable.item.code;
+        if (!this.unit.maxbuildable) {
           // this case relies on how some maxbuildable units do not exist in sku definitions,
         // but will still work to grant the unit... sometimes.
-          this.maxBuildableSku = this.unit.maxbuildableSku.item.code;
+          this.maxBuildableSku = this.unit.maxbuildable.item.code;
         }
       }
     }
@@ -41,26 +42,23 @@ export class CatalogUnitListComponent implements OnInit {
     this.canAddMaxBuildable = this.maxBuildableSku != null;
     this.canDisplayMaxBuildable = this.maxBuildableItem != null;
 
-    if (this.unit.unlockSku != null) {
-      if (this.unit.unlockSku.sku != null) {
-        this.unlockSku = this.unit.unlockSku.sku.code;
-      } else if (this.unit.unlockSku.item != null) {
-        this.unlockSku = this.unit.unlockSku.item.code;
-        this.unlockItem = this.unit.unlockSku.item.code;
+    if (this.unit.unlock !== null) {
+      if (this.unit.unlock.sku != null) {
+        this.unlockSku = this.unit.unlock.sku.code;
+      } else if (this.unit.unlock.item != null) {
+        this.unlockSku = this.unit.unlock.item.code;
       }
+
+      this.unlockItem = this.unit.unlock.item.code;
     }
 
     this.canAddUnlock = (this.unlockSku != null && this.unlockSku !== undefined);
     this.canDisplayUnlock = this.unlockItem != null;
 
-  }
-
-
-  /** Indicates whether a given unit is able to add a prebuilt. Single use units are never eligible. */
-  get canAddPrebuilt(): boolean {
     // TODO: what other rules govern whether we can -- or should -- grant
     // a prebuilt unit?
-    return !this.unit.tags.some(t => t === 'SINGLE_USE');
+    this.canAddPrebuilt = !this.unit.tags.some(t => t === 'SINGLE_USE');
+
   }
 
   addUnlock() {
@@ -73,6 +71,11 @@ export class CatalogUnitListComponent implements OnInit {
 
   addPrebuilt() {
     this.createService.addPrebuiltUnit(this.unit);
+  }
+
+  addDisplay(itemCode: string): void {
+    console.log('adding display item ' + itemCode);
+    this.createService.addItemToDisplay(itemCode);
   }
 
   tagToBackground(tag: string) {

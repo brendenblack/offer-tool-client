@@ -25,8 +25,8 @@
       <div class="row">
         <div class="col-sm-4">Display:</div>
         <div class="col">
-          <button class="btn btn-link py-0 px-2" [disabled]="!canDisplayUnlock"><i class="fas fa-lock-open"></i></button>
-          <button class="btn btn-link py-0 px-2" [disabled]="!canDisplayMaxBuildable" (click)="addMaxBuildable()"><i class="fas fa-users"></i></button>
+          <button class="btn btn-link py-0 px-2" [disabled]="!canDisplayUnlock" (click)="addDisplay(unlockItem)"><i class="fas fa-lock-open"></i></button>
+          <button class="btn btn-link py-0 px-2" [disabled]="!canDisplayMaxBuildable" (click)="addDisplay(maxBuildableItem)"><i class="fas fa-users"></i></button>
         </div>
       </div>
     </div>

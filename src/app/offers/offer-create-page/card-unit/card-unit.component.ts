@@ -16,17 +16,17 @@ export class CardUnitComponent implements OnInit {
   private maxBuildableSku: string;
 
   ngOnInit() {
-    if (this.unit.maxbuildableSku != null) {
-      if (this.unit.maxbuildableSku.sku != null) {
-        this.maxBuildableSku = this.unit.maxbuildableSku.sku.code;
-      } else if (this.unit.maxbuildableSku.item != null) {
-        this.maxBuildableSku = this.unit.maxbuildableSku.item.code;
+    if (this.unit.maxbuildable != null) {
+      if (this.unit.maxbuildable.sku != null) {
+        this.maxBuildableSku = this.unit.maxbuildable.sku.code;
+      } else if (this.unit.maxbuildable.item != null) {
+        this.maxBuildableSku = this.unit.maxbuildable.item.code;
       }
     }
   }
 
   get canAddUnlock(): boolean {
-    return (this.unit.unlockSku && this.unit.unlockSku.sku && this.unit.unlockSku.sku.code || null) != null;
+    return (this.unit.unlock && this.unit.unlock.sku && this.unit.unlock.sku.code || null) != null;
   }
 
   get canAddPrebuilt(): boolean {
