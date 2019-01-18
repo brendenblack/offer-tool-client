@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
-import { OfferContent, OfferDisplay, UnitOfferContent, Unit } from 'src/app/core/models';
+import { OfferContent, OfferDisplayItem, UnitOfferContent, Unit } from 'src/app/core/models';
 import { stringify } from '@angular/compiler/src/util';
 
 @Injectable()
@@ -15,8 +15,8 @@ export class CreateOfferService {
     offerContent$ = this.offerContentSubject.asObservable();
 
 
-    private displayedItems = new OfferDisplay();
-    private displayedItemsSubject = new BehaviorSubject<OfferDisplay>(this.displayedItems);
+    private displayedItems: OfferDisplayItem[] = [];
+    private displayedItemsSubject = new BehaviorSubject<OfferDisplayItem[]>(this.displayedItems);
     offerDisplayedItems$ = this.displayedItemsSubject.asObservable();
 
     addUnit(type: number) {
@@ -105,11 +105,11 @@ export class CreateOfferService {
 
     addItemToDisplay(itemCode: string): void {
         let display = this.displayedItems;
-        let existingItem = display.items.find(i => i.item === itemCode);
+        let existingItem = display.find(i => i.item === itemCode);
         if (existingItem) {
             existingItem.amount += 1;
         } else {
-            display.items.push({ item: itemCode, amount: 1, order: display.items.length + 1 });
+            display.push({ item: itemCode, amount: 1, order: display.length + 1 });
         }
 
         this.displayedItems = display;

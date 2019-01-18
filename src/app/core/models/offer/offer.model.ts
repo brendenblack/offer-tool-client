@@ -1,4 +1,4 @@
-import { OfferContent, OfferDisplay, OfferDisplayOptions} from '.';
+import { OfferContent, OfferDisplayItem, OfferDisplayOptions} from '.';
 
 export class Offer {
 
@@ -18,9 +18,9 @@ export class Offer {
     maxQuantity = 1;
     startDate: Date = new Date();
     endDate: Date = new Date(new Date().setDate(this.startDate.getDate() + 3));
-    cooldownType = 'Time';
+    cooldownType = 0;
     cooldown = 0;
     content = new OfferContent();
-    display = new OfferDisplay();
+    display: OfferDisplayItem[] = [];
     displayOptions = new OfferDisplayOptions();
 }

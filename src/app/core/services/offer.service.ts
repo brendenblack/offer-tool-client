@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ApiService } from './api.service';
-import { OfferSummary, Offer, OfferDisplayOptions, OfferEntity } from '../models';
+import { OfferSummary, Offer, OfferDisplayOptions, OfferEntity, CreateOfferCommand } from '../models';
 import { map } from 'rxjs/operators';
 import { OfferCatalog } from '../models/offer-catalog.model';
 import { WcOffersApiService } from './wc-offers-api.service';
@@ -60,6 +60,13 @@ export class OfferService {
             console.log(data);
             return data;
         }));
+    }
+
+    createOffer(offer: Offer): void {
+        let command = new CreateOfferCommand();
+        command.offers.push(offer);
+        this.wcOffersApiService.post(`/offers`, command).pipe(map(data =>
+            console.log(data)));
     }
 }
 

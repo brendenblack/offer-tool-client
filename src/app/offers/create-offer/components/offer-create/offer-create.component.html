@@ -178,7 +178,7 @@
           <div class="form-group form-row">
               <label class="col-xl-3 col-md-12 col-form-label col-form-label-sm">Items <!--<button class="btn btn-link" (click)="openModal(skuModal)"><i class="fas fa-plus-square"></i></button>--></label>
               <div class="col">
-                <div class="row" *ngFor="let item of offer.display.items">
+                <div class="row" *ngFor="let item of offer.display">
                   <div class="col">
                     {{ item.item }}
                   </div>
@@ -219,6 +219,6 @@
       
     <button class="btn btn-link">Preview JSON</button>
     <button class="btn btn-link">Preview visual</button>
-    <button type="submit" class="btn btn-primary">Create</button>
+    <button type="submit" class="btn btn-primary" (click)="createOffer()">Create</button>
   </form>
 </div>

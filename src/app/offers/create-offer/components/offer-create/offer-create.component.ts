@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { CreateOfferService } from 'src/app/offers/offer-create-page/create-offer.service';
 import { Subscription } from 'rxjs';
 import { Unit, Offer } from 'src/app/core/models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CreateOfferService } from '../../create-offer.service';
+import { OfferService } from 'src/app/core/services';
 
 @Component({
   selector: 'app-offer-create',
@@ -12,7 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class OfferCreateComponent implements OnInit {
 
-  constructor(private createOfferService: CreateOfferService, private modalService: NgbModal) {
+  constructor(private createOfferService: CreateOfferService, private offerService: OfferService, private modalService: NgbModal) {
     this.offer = new Offer();
 
     this.offerContentSubscription = createOfferService.offerContent$.subscribe(content => {
@@ -79,6 +80,15 @@ export class OfferCreateComponent implements OnInit {
     let t = date.toLocaleTimeString('en-GB');
 
     return d + 'T' + t;
+  }
+
+  createOffer(): void {
+    this.offer.code = 'OfferCode';
+    this.offer.title = 'offer title is this';
+    this.offer.description = 'a descriptive text blob';
+    this.offer.iconTitle = 'title';
+    this.offer.iconDescription = 'short desc';
+    this.offerService.createOffer(this.offer);
   }
 
   ngOnInit() {

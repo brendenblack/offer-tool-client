@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, of } from 'rxjs';
 
 // import { JwtService } from './jwt.service';
 import { catchError } from 'rxjs/operators';
@@ -14,6 +14,7 @@ export class WcOffersApiService {
   ) {}
 
   private formatErrors(error: any) {
+    console.log(error);
     return throwError(error.error);
   }
 
@@ -32,6 +33,8 @@ export class WcOffersApiService {
   }
 
   post(path: string, body: Object = {}): Observable<any> {
+    console.log(`received request to post to ${environment.wcoffers_api_url}${path}`);
+    console.log(JSON.stringify(body));
     return this.http.post(
       `${environment.wcoffers_api_url}${path}`,
       JSON.stringify(body)

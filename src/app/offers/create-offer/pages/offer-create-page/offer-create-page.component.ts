@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OfferService } from 'src/app/core/services/offer.service';
 import { OfferCatalog, Tech, GrantableItem, Sku, Item, Unit } from 'src/app/core/models/offer-catalog.model';
-import { CreateOfferService } from 'src/app/offers/offer-create-page/create-offer.service';
-import { CatalogTechListComponent } from './catalog-tech-list/catalog-tech-list.component';
+import { CreateOfferService } from '../../create-offer.service';
 
 @Component({
   selector: 'app-offer-create-page',
@@ -12,7 +11,7 @@ import { CatalogTechListComponent } from './catalog-tech-list/catalog-tech-list.
 })
 export class OfferCreatePageComponent implements OnInit {
 
-  constructor(private createOfferService:CreateOfferService, private offersService: OfferService) { }
+  constructor(private createOfferService: CreateOfferService, private offersService: OfferService) { }
 
   private catalog: OfferCatalog;
   private unitTags: Set<string>;

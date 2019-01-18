@@ -1,0 +1,38 @@
+<section class="shadow border" style="border-color: rgb(222, 226, 230);">
+    <div class="row m-0 px-1 py-2 border-bottom bg-white" style="border-color: rgb(222, 226, 230);">
+      <div class="col">
+        <div class="input-group">
+            <div class="input-group-prepend" id="unitSearchIcon">
+              <span class="input-group-text">
+                <i class="fas fa-search"></i>
+              </span>
+            </div>
+            <input class="form-control form-control-sm" [(ngModel)]="unitSearchText" aria-describedby="unitSearchIcon" />
+          </div>
+      </div>
+
+      <div class="col-md-auto">
+        <form>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox1" [ngModelOptions]="{standalone: true}" [(ngModel)]="isShowSurvivors">
+              <label class="form-check-label" for="inlineCheckbox1">Survivors</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox2" [ngModelOptions]="{standalone: true}" [(ngModel)]="isShowCorpus">
+              <label class="form-check-label" for="inlineCheckbox2">Corpus</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox3" [ngModelOptions]="{standalone: true}" [(ngModel)]="isShowSentinels">
+              <label class="form-check-label" for="inlineCheckbox3">Sentinels</label>
+            </div>
+          </form>
+        </div>
+    </div>
+  <div class="row p-3 m-0 border-bottom rounded-bottom bg-white" style="border-color: rgb(222, 226, 230);">
+    <div class="col">
+      <div *ngFor="let u of units | unitFilter: isShowSurvivors : isShowCorpus: isShowSentinels | unitSearch: unitSearchText">
+        <app-catalog-faction-unit-item [unit]="u"></app-catalog-faction-unit-item>
+      </div>
+    </div>
+  </div>
+</section>

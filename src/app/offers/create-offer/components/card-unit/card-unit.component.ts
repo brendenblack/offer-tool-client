@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Unit } from 'src/app/core/models/offer-catalog.model';
-import { CreateOfferService } from '../create-offer.service';
+import { CreateOfferService } from '../../create-offer.service';
 
 @Component({
   selector: 'app-card-unit',

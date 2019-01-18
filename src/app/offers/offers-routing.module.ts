@@ -3,25 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { OffersPageComponent } from './offers-page/offers-page.component';
 import { OfferDetailsPageComponent } from './offer-details-page/offer-details-page.component';
 import { OffersCalendarPageComponent } from './offers-calendar-page/offers-calendar-page.component';
-import { OfferCreatePageComponent } from './offer-create-page/offer-create-page.component';
+import { OfferPageComponent } from './offer-page/offer-page.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: OffersPageComponent,
+    path: 'create',
+    loadChildren: './create-offer/create-offer.module#CreateOfferModule'
   },
   {
-    path: 'offers/create',
-    component: OfferCreatePageComponent
-  },
-  {
-    path: 'offers/:id',
-    component: OfferDetailsPageComponent
-  },
-  {
-    path: 'calendar',
-    component: OffersCalendarPageComponent
-  }  
+  path: '',
+  component: OfferPageComponent
+  }
 ];
 
 @NgModule({

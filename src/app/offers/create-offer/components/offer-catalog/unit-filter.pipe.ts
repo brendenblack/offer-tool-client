@@ -4,25 +4,25 @@ import { Unit } from 'src/app/core/models';
 @Pipe({ name: 'unitFilter' })
 export class UnitFilterPipe implements PipeTransform {
 
-  transform(units: Unit[], isDisplayUniques: boolean, isDisplayHeroes: boolean, isDisplaySingleUse: boolean): any {
+  transform(units: Unit[], isDisplaySurvivors: boolean, isDisplayCorpus: boolean, isDisplaySentinels: boolean): any {
 
     let filteredUnits = units;
 
-    if (!isDisplayHeroes) {
+    if (!isDisplaySentinels) {
         filteredUnits = filteredUnits.filter((u) => {
-            return !u.tags.find(t => t === 'HERO');
+            return !u.tags.find(t => t === 'SENTINELS');
         });
     }
 
-    if (!isDisplayUniques) {
+    if (!isDisplayCorpus) {
         filteredUnits = filteredUnits.filter((u) => {
-            return !u.tags.find(t => t === 'UNIQUE');
+            return !u.tags.find(t => t === 'CORPUS');
         });
     }
 
-    if (!isDisplaySingleUse) {
+    if (!isDisplaySurvivors) {
         filteredUnits = filteredUnits.filter((u) => {
-            return !u.tags.find(t => t === 'SINGLE_USE');
+            return !u.tags.find(t => t === 'SURVIVORS');
         });
     }
 

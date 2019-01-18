@@ -1,13 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Tech } from 'src/app/core/models';
-import { CreateOfferService } from '../create-offer.service';
+import { CreateOfferService } from '../../create-offer.service';
 
 @Component({
-  selector: 'app-catalog-tech-list',
-  templateUrl: './catalog-tech-list.component.html',
-  styleUrls: ['./catalog-tech-list.component.css']
+  selector: 'app-catalog-tech-item',
+  templateUrl: './catalog-tech-item.component.html',
+  styleUrls: ['./catalog-tech-item.component.css']
 })
-export class CatalogTechListComponent implements OnInit {
+export class CatalogTechItemComponent implements OnInit {
 
   constructor(private createService: CreateOfferService) { }
 

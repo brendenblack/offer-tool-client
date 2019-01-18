@@ -15,7 +15,7 @@ const after = (one: NgbDateStruct, two: NgbDateStruct) =>
     ? false : one.day > two.day : one.month > two.month : one.year > two.year;
 
 @Component({
-  selector: 'offers-list',
+  selector: 'app-offers-list',
   templateUrl: './offers-list.component.html',
   styleUrls: ['./offers-list.component.css']
 })
