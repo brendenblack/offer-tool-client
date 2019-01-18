@@ -65,8 +65,7 @@ export class OfferService {
     createOffer(offer: Offer): void {
         let command = new CreateOfferCommand();
         command.offers.push(offer);
-        this.wcOffersApiService.post(`/offers`, command).pipe(map(data =>
-            console.log(data)));
+        this.wcOffersApiService.post(`/offers`, command).subscribe(r => { console.log(r); });
     }
 }
 
