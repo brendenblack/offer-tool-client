@@ -186,9 +186,11 @@
                     {{ item.amount }}
                   </div>
                   <div class="col-md-auto">
-                    <!-- <button class="btn btn-link m-0 mr-1 p-0" (click)="incrementSku(sku.key)"><i class="fas fa-plus-square"></i></button>
-                    <button class="btn btn-link m-0 p-0" (click)="decrementSku(sku.key)"><i *ngIf="sku.value == 1" class="fas fa-trash-alt text-danger"></i><i *ngIf="sku.value > 1" class="fas fa-minus-square"></i></button> -->
-                  </div>
+                      <button class="btn btn-link m-0 mr-1 p-0" (click)="incrementDisplayItem(item.item)"><i class="fas fa-plus-square"></i></button>
+                      <button class="btn btn-link m-0 p-0" (click)="decrementDisplayItem(item.item)">
+                          <i *ngIf="item.amount == 1" class="fas fa-trash-alt text-danger"></i><i *ngIf="item.amount > 1" class="fas fa-minus-square"></i>
+                      </button>
+                    </div>
                 </div>
               </div>
             </div>

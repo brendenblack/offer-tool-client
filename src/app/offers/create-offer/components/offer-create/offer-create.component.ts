@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Unit, Offer } from 'src/app/core/models';
+import { Unit, Offer, Item } from 'src/app/core/models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateOfferService } from '../../create-offer.service';
 import { OfferService } from 'src/app/core/services';
@@ -75,6 +75,14 @@ export class OfferCreateComponent implements OnInit {
     this.createOfferService.removePrebuiltUnit(unit);
   }
 
+  incrementDisplayItem(itemCode: string): void {
+    this.createOfferService.addItemToDisplay(itemCode);
+  }
+
+  decrementDisplayItem(itemCode: string): void {
+    this.createOfferService.removeItemFromDisplay(itemCode);
+  }
+
   formatDate(date: Date): string {
     let d = date.toLocaleDateString('en-CA');
     let t = date.toLocaleTimeString('en-GB');
@@ -88,6 +96,7 @@ export class OfferCreateComponent implements OnInit {
     this.offer.description = 'a descriptive text blob';
     this.offer.iconTitle = 'title';
     this.offer.iconDescription = 'short desc';
+    console.log(this.offer);
     this.offerService.createOffer(this.offer);
   }
 

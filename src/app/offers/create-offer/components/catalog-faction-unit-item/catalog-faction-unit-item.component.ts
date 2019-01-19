@@ -1,16 +1,18 @@
-
-
 import { Component, OnInit, Input } from '@angular/core';
 import { Unit } from 'src/app/core/models';
 import { CreateOfferService } from '../../create-offer.service';
+
 @Component({
   selector: 'app-catalog-faction-unit-item',
   templateUrl: './catalog-faction-unit-item.component.html',
   styleUrls: ['./catalog-faction-unit-item.component.css']
 })
 export class CatalogFactionUnitItemComponent implements OnInit {
+
   constructor(private createService: CreateOfferService) { }
+
   @Input()
+
   unit: Unit;
   private maxBuildableSku: string;
   private canAddMaxBuildable: boolean;
@@ -21,6 +23,7 @@ export class CatalogFactionUnitItemComponent implements OnInit {
   private unlockItem: string;
   private canDisplayUnlock: boolean;
   private canAddPrebuilt: boolean;
+
   ngOnInit() {
     if (this.unit.maxbuildable != null) {
       if (this.unit.maxbuildable.sku != null) {
@@ -54,19 +57,23 @@ export class CatalogFactionUnitItemComponent implements OnInit {
     // a prebuilt unit?
     this.canAddPrebuilt = !this.unit.tags.some(t => t === 'SINGLE_USE');
   }
+
   addUnlock() {
     this.createService.addSkuToContent(this.unlockSku);
   }
+
   addMaxBuildable() {
     this.createService.addSkuToContent(this.maxBuildableSku);
   }
+
   addPrebuilt() {
     this.createService.addPrebuiltUnit(this.unit);
   }
+
   addDisplay(itemCode: string): void {
-    console.log('adding display item ' + itemCode);
     this.createService.addItemToDisplay(itemCode);
   }
+
   tagToBackground(tag: string) {
     switch (tag) {
       case 'UNIQUE': {

@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
-import { OfferContent, OfferDisplayItem, UnitOfferContent, Unit } from 'src/app/core/models';
+import { OfferContent, OfferDisplayItem, UnitOfferContent, Unit, Item } from 'src/app/core/models';
 import { stringify } from '@angular/compiler/src/util';
 
 @Injectable()
 export class CreateOfferService {
-
-    private unitTypes = new Subject<number>();
-
-    unitTypes$ = this.unitTypes.asObservable();
 
     private offerContent = new OfferContent();
     private offerContentSubject = new BehaviorSubject<OfferContent>(this.offerContent);
@@ -18,10 +14,6 @@ export class CreateOfferService {
     private displayedItems: OfferDisplayItem[] = [];
     private displayedItemsSubject = new BehaviorSubject<OfferDisplayItem[]>(this.displayedItems);
     offerDisplayedItems$ = this.displayedItemsSubject.asObservable();
-
-    addUnit(type: number) {
-        this.unitTypes.next(type);
-    }
 
     addPrebuiltUnit(unit: Unit) {
         let offer = this.offerContent;
@@ -73,6 +65,17 @@ export class CreateOfferService {
     addSkuToContent(sku: string): void {
         let offer = this.offerContent;
 
+        if (!offer.skulist) {
+            offer.skulist = { };
+        }
+        if (offer.skulist[sku]) {
+            offer.skulist[sku] = offer.skulist[sku] + 1;
+        } else {
+            offer.skulist[sku] = 1;
+        }
+
+        console.log(offer.skulist);
+
         if (offer.skus && offer.skus.has(sku)) {
             let currentQuantity = offer.skus.get(sku);
             offer.skus.set(sku, currentQuantity + 1);
@@ -107,9 +110,29 @@ export class CreateOfferService {
         let display = this.displayedItems;
         let existingItem = display.find(i => i.item === itemCode);
         if (existingItem) {
+            console.log(`incrementing existing item ${existingItem.item}`);
             existingItem.amount += 1;
         } else {
-            display.push({ item: itemCode, amount: 1, order: display.length + 1 });
+            console.log(`adding new item ${itemCode}`);
+            let item: OfferDisplayItem = { item: itemCode, amount: 1, order: display.length + 1 };
+            console.log(item);
+            display.push(item);
+        }
+
+        this.displayedItems = display;
+        this.displayedItemsSubject.next(this.displayedItems);
+    }
+
+    removeItemFromDisplay(itemCode: string): void {
+        let display = this.displayedItems;
+        let existingItem = display.find(i => i.item === itemCode);
+        if (existingItem) {
+            if (existingItem.amount === 1) {
+                let index = display.indexOf(existingItem);
+                display.splice(index, 1);
+            } else {
+                existingItem.amount -= 1;
+            }
         }
 
         this.displayedItems = display;
