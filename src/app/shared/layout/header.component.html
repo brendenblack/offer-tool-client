@@ -8,14 +8,21 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">          
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-          <a class="nav-link" routerLink="/">Offer list</a>
+          <a class="nav-link" routerLink="/">Clone an offer</a>
         </li>
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-          <a class="nav-link" routerLink="/calendar">Offer calendar</a>
-        </li>
-        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-          <a class="nav-link" routerLink="/offers/create">Create offer</a>
-        </li>  
+          <a class="nav-link" routerLink="/offers/create">Create an offer</a>
+        </li> 
+        <!-- <li class="nav-item dropdown">
+            <div ngbDropdown class="d-inline-block">
+              <a class="nav-link" id="dropdownMenu1" ngbDropdownToggle role="button" data-toggle="dropdown">Offers</a>
+              <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <button class="dropdown-item"><a class="nav-link text-dark" routerLink="/offers/create">Create offer</a></button>
+                <button class="dropdown-item">Another Action</button>
+                <button class="dropdown-item">Something else is here</button>
+              </div>
+            </div>
+          </li>     -->
       </ul>
     </div>
 </nav>
