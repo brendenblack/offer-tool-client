@@ -10,7 +10,6 @@ export class CreateOfferService {
     private offerContentSubject = new BehaviorSubject<OfferContent>(this.offerContent);
     offerContent$ = this.offerContentSubject.asObservable();
 
-
     private displayedItems: OfferDisplayItem[] = [];
     private displayedItemsSubject = new BehaviorSubject<OfferDisplayItem[]>(this.displayedItems);
     offerDisplayedItems$ = this.displayedItemsSubject.asObservable();
@@ -30,7 +29,7 @@ export class CreateOfferService {
                 u.amount = 1;
                 offer.units.push(u);
             }
-        } else  {
+        } else {
             offer.units = [];
             let u = new UnitOfferContent();
             u.type = unit.type;
@@ -65,26 +64,25 @@ export class CreateOfferService {
     addSkuToContent(sku: string): void {
         let offer = this.offerContent;
 
-        if (!offer.skulist) {
-            offer.skulist = { };
+        if (!offer.skus) {
+            offer.skus = { };
         }
-        if (offer.skulist[sku]) {
-            offer.skulist[sku] = offer.skulist[sku] + 1;
+        if (offer.skus[sku]) {
+            offer.skus[sku] = offer.skus[sku] + 1;
         } else {
-            offer.skulist[sku] = 1;
+            offer.skus[sku] = 1;
         }
 
-        console.log(offer.skulist);
 
-        if (offer.skus && offer.skus.has(sku)) {
-            let currentQuantity = offer.skus.get(sku);
-            offer.skus.set(sku, currentQuantity + 1);
-        } else if (offer.skus && !offer.skus.has(sku)) {
-            offer.skus.set(sku, 1);
-        } else {
-            offer.skus = new  Map<string, number>();
-            offer.skus.set(sku, 1);
-        }
+        // if (offer.skus && offer.skus.has(sku)) {
+        //     let currentQuantity = offer.skus.get(sku);
+        //     offer.skus.set(sku, currentQuantity + 1);
+        // } else if (offer.skus && !offer.skus.has(sku)) {
+        //     offer.skus.set(sku, 1);
+        // } else {
+        //     offer.skus = new  Map<string, number>();
+        //     offer.skus.set(sku, 1);
+        // }
 
         this.offerContent = offer;
         this.offerContentSubject.next(this.offerContent);
@@ -93,12 +91,12 @@ export class CreateOfferService {
     removeSkuFromContent(sku: string): void {
         let offer = this.offerContent;
 
-        if (offer.skus && offer.skus.has(sku)) {
-            let currentQuantity = offer.skus.get(sku);
+        if (offer.skus && offer.skus[sku]) {
+            let currentQuantity = offer.skus[sku];
             if (currentQuantity <= 1) {
-                offer.skus.delete(sku);
+                delete offer.skus[sku];
             } else {
-                offer.skus.set(sku, currentQuantity - 1);
+                offer.skus[sku] = currentQuantity - 1;
             }
         }
 
@@ -110,12 +108,9 @@ export class CreateOfferService {
         let display = this.displayedItems;
         let existingItem = display.find(i => i.item === itemCode);
         if (existingItem) {
-            console.log(`incrementing existing item ${existingItem.item}`);
             existingItem.amount += 1;
         } else {
-            console.log(`adding new item ${itemCode}`);
             let item: OfferDisplayItem = { item: itemCode, amount: 1, order: display.length + 1 };
-            console.log(item);
             display.push(item);
         }
 
@@ -139,4 +134,10 @@ export class CreateOfferService {
         this.displayedItemsSubject.next(this.displayedItems);
     }
 
+    clear(): void {
+        this.displayedItems = [];
+        this.displayedItemsSubject.next(this.displayedItems);
+        this.offerContent = new OfferContent();
+        this.offerContentSubject.next(this.offerContent);
+    }
 }

@@ -1,19 +1,19 @@
 <div *ngIf="offer" class="mw-100 create-offer-form">
   <form #offerForm="ngForm">
-    
-    <div class="form-row">
+    <div class="">
+    <div class="form-row m-0 bg-secondary px-2">
       <div class="col">
           <button type="button" class="btn btn-link p-0 text-secondary w-100 text-left" (click)="isDetailsCollapsed = !isDetailsCollapsed" [attr.aria-expanded]="!isDetailsCollapsed" aria-controls="detailsCollapse">
               <div class="form-row">  
-                <div class="col"><span class="create-heading">Descriptive fields</span></div>
+                <div class="col"><span class="create-heading text-light">Descriptive fields</span></div>
                 <div class="col-sm-auto">
-                  <i class='fas fa-caret-square-right' *ngIf="isDetailsCollapsed"></i><i class='fas fa-caret-square-down text-primary' *ngIf="!isDetailsCollapsed"></i>
+                  <i class='fas fa-caret-square-right text-white' *ngIf="isDetailsCollapsed"></i><i class='fas fa-caret-square-down text-white' *ngIf="!isDetailsCollapsed"></i>
                 </div>
               </div>
             </button>
       </div>
     </div>
-    <div id="detailsCollapse" [ngbCollapse]="isDetailsCollapsed" class="w-100 border-bottom border-light">
+    <div id="detailsCollapse" [ngbCollapse]="isDetailsCollapsed" class="w-100 p-2">
       <div class="form-group form-row">
         <label for="code" class="col-xl-3 col-md-12 col-form-label col-form-label-sm">Code</label>
         <div class="col">
@@ -49,20 +49,22 @@
           </div>
       </div>
     </div>
-    
-    <div class="form-row">
+  </div>
+
+  <div class="">
+    <div class="form-row m-0 bg-secondary px-2">
       <div class="col">
         <button type="button" class="btn btn-link p-0 text-secondary w-100 text-left" (click)="isTimeFieldsCollapsed = !isTimeFieldsCollapsed" [attr.aria-expanded]="!isTimeFieldsCollapsed" aria-controls="timeFieldsCollapse">
           <div class="form-row">  
-            <div class="col"><span class="create-heading">Time fields</span></div>
+            <div class="col"><span class="create-heading text-light">Time fields</span></div>
             <div class="col-sm-auto">
-              <i class='fas fa-caret-square-right' *ngIf="isTimeFieldsCollapsed"></i><i class='fas fa-caret-square-down text-primary' *ngIf="!isTimeFieldsCollapsed"></i>
+              <i class='fas fa-caret-square-right text-white' *ngIf="isTimeFieldsCollapsed"></i><i class='fas fa-caret-square-down text-white' *ngIf="!isTimeFieldsCollapsed"></i>
             </div>
           </div>
         </button>
       </div>
     </div>
-    <div id="timeFieldsCollapse" [ngbCollapse]="isTimeFieldsCollapsed" class="w-100">
+    <div id="timeFieldsCollapse" [ngbCollapse]="isTimeFieldsCollapsed" class="w-100 p-2">
       <div class="form-group form-row">
           <label for="startDate" class="col-xl-3 col-md-12 col-form-label col-form-label-sm">Start time</label>
           <div class="col-xl-9 col-md-12">
@@ -84,20 +86,22 @@
           </div>  
       </div>
     </div>
+  </div>
 
-    <div class="form-row">
+  <div class="">
+    <div class="form-row m-0 bg-secondary px-2">
       <div class="col">
         <button type="button" class="btn btn-link p-0 text-secondary w-100 text-left" (click)="isContentCollapsed = !isContentCollapsed" [attr.aria-expanded]="!isContentCollapsed" aria-controls="isContentCollapsed">
           <div class="form-row">  
-            <div class="col"><span class="create-heading">Content</span></div>
+            <div class="col"><span class="create-heading text-light">Content</span></div>
             <div class="col-sm-auto">
-              <i class='fas fa-caret-square-right' *ngIf="isContentCollapsed"></i><i class='fas fa-caret-square-down text-primary' *ngIf="!isContentCollapsed"></i>
+              <i class="fas fa-caret-square-right text-white" *ngIf="isContentCollapsed"></i><i class='fas fa-caret-square-down text-white' *ngIf="!isContentCollapsed"></i>
             </div>
           </div>
         </button>
       </div>
     </div>
-    <div id="contentCollapse" [ngbCollapse]="isContentCollapsed" class="w-100">
+    <div id="contentCollapse" [ngbCollapse]="isContentCollapsed" class="w-100 p-2">
       <div class="content-block">
         <div class="form-group form-row">
           <label class="col-xl-3 col-md-12 col-form-label col-form-label-sm">Skus <!--<button class="btn btn-link" (click)="openModal(skuModal)"><i class="fas fa-plus-square"></i></button>--></label>
@@ -160,20 +164,22 @@
         </div>
       </div>
     </div>
-  
-    <div class="form-row">
+  </div>
+
+    <div class="">
+    <div class="form-row m-0 bg-secondary px-2">
       <div class="col">
         <button type="button" class="btn btn-link p-0 text-secondary w-100 text-left" (click)="isDisplayCollapsed = !isDisplayCollapsed" [attr.aria-expanded]="!isDisplayCollapsed" aria-controls="isDisplayCollapsed">
           <div class="form-row">  
-            <div class="col"><span class="create-heading">Display</span></div>
+            <div class="col"><span class="create-heading text-light">Display</span></div>
             <div class="col-sm-auto">
-              <i class='fas fa-caret-square-right' *ngIf="isDisplayCollapsed"></i><i class='fas fa-caret-square-down text-primary' *ngIf="!isDisplayCollapsed"></i>
+              <i class="fas fa-caret-square-right text-white" *ngIf="isDisplayCollapsed"></i><i class="fas fa-caret-square-down text-white" *ngIf="!isDisplayCollapsed"></i>
             </div>
           </div>
         </button>
       </div>
     </div>
-    <div id="displayCollapse" [ngbCollapse]="isDisplayCollapsed" class="w-100">
+    <div id="displayCollapse" [ngbCollapse]="isDisplayCollapsed" class="w-100 p-2">
       <div class="content-block">
           <div class="form-group form-row">
               <label class="col-xl-3 col-md-12 col-form-label col-form-label-sm">Items <!--<button class="btn btn-link" (click)="openModal(skuModal)"><i class="fas fa-plus-square"></i></button>--></label>
@@ -217,10 +223,17 @@
         </div>  
       </div>
     </div>
-
+  </div>
       
-    <button class="btn btn-link">Preview JSON</button>
-    <button class="btn btn-link">Preview visual</button>
-    <button type="submit" class="btn btn-primary" (click)="createOffer()">Create</button>
+  <div class="mt-3">
+    <button class="btn btn-link" disabled>Preview JSON</button>
+    <button class="btn btn-link" disabled>Preview visual</button>
+    <button type="submit" class="btn btn-primary" (click)="createOffer()" [disabled]="isCreatingOffer">Create</button>
+  </div>
   </form>
+</div>
+
+<div class="mt-2">
+<ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+<ngb-alert *ngIf="errorMessage" type="danger" (close)="errorMessage = null">{{ errorMessage }}</ngb-alert>
 </div>

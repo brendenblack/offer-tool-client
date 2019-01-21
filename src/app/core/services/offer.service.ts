@@ -4,11 +4,11 @@ import { ApiService } from './api.service';
 import { OfferSummary, Offer, OfferDisplayOptions, OfferEntity, CreateOfferCommand } from '../models';
 import { map } from 'rxjs/operators';
 import { OfferCatalog } from '../models/offer-catalog.model';
-import { WcOffersApiService } from './wc-offers-api.service';
+import { WcProductApiService } from './wc-product-api.service';
 
 @Injectable()
 export class OfferService {
-    constructor(private apiService: ApiService, private wcOffersApiService: WcOffersApiService) {}
+    constructor(private apiService: ApiService, private wcOffersApiService: WcProductApiService) {}
 
     getAllOffers(active: boolean = false): Observable<OfferSummary[]> {
         return this.apiService.get(`/offers?active=${active}`).pipe(map(data => {
@@ -62,10 +62,17 @@ export class OfferService {
         }));
     }
 
-    createOffer(offer: Offer): void {
+    createOffer(offer: Offer): Observable<any> {
         let command = new CreateOfferCommand();
         command.offers.push(offer);
-        this.wcOffersApiService.post(`/offers`, command).subscribe(r => { console.log(r); });
+        return this.wcOffersApiService.post(`/offers`, command);
+        // this.wcOffersApiService.post(`/offers`, command).subscribe(result => { 
+        //     // TODO
+        //     console.log(result); 
+        // },
+        // error => {
+        //     console.log(error);
+        // });
     }
 }
 

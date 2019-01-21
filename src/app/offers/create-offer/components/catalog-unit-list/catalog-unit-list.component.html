@@ -28,7 +28,7 @@
           </form>
         </div>
     </div>
-  <div class="row p-3 m-0 border-bottom rounded-bottom bg-white" style="border-color: rgb(222, 226, 230);">
+  <div class="row p-3 m-0 border-bottom rounded-bottom bg-white" style="border-color: rgb(222, 226, 230); max-height: 100vh - 180px; overflow-y: auto;">
     <div class="col">
       <div *ngFor="let u of units | unitFilter: isShowSurvivors : isShowCorpus: isShowSentinels | unitSearch: unitSearchText">
         <app-catalog-faction-unit-item [unit]="u"></app-catalog-faction-unit-item>

@@ -7,14 +7,14 @@ import { Observable, throwError, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable()
-export class WcOffersApiService {
+export class WcProductApiService {
   constructor(
     private http: HttpClient,
     // private jwtService: JwtService
   ) {}
 
   private formatErrors(error: any) {
-    console.log(error);
+    console.error(error);
     return throwError(error.error);
   }
 
@@ -33,8 +33,6 @@ export class WcOffersApiService {
   }
 
   post(path: string, body: Object = {}): Observable<any> {
-    console.log(`received request to post to ${environment.wcoffers_api_url}${path}`);
-    console.log(JSON.stringify(body));
     return this.http.post(
       `${environment.wcoffers_api_url}${path}`,
       JSON.stringify(body)

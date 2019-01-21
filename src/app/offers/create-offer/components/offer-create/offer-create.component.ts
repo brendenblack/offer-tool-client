@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Unit, Offer, Item } from 'src/app/core/models';
+import { Unit, Offer } from 'src/app/core/models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateOfferService } from '../../create-offer.service';
 import { OfferService } from 'src/app/core/services';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-offer-create',
@@ -14,21 +15,10 @@ import { OfferService } from 'src/app/core/services';
 export class OfferCreateComponent implements OnInit {
 
   constructor(private createOfferService: CreateOfferService, private offerService: OfferService, private modalService: NgbModal) {
-    this.offer = new Offer();
-
-    this.offerContentSubscription = createOfferService.offerContent$.subscribe(content => {
-      this.offer.content = content;
-    });
-
-    this.offerDisplayedItemsSubscription = createOfferService.offerDisplayedItems$.subscribe(items => {
-      this.offer.display = items;
-    });
   }
 
   offerContentSubscription: Subscription;
   offerDisplayedItemsSubscription: Subscription;
-
-
 
   offer: Offer;
 
@@ -36,6 +26,10 @@ export class OfferCreateComponent implements OnInit {
   isTimeFieldsCollapsed = true;
   isContentCollapsed = false;
   isDisplayCollapsed = false;
+  isCreatingOffer = false;
+
+  successMessage: string;
+  errorMessage: string;
 
   private templateValueCapacity = { 1: 0, 6: 1, 4: 3, 5: 4, 3: 5, 2: 6 };
 
@@ -91,17 +85,43 @@ export class OfferCreateComponent implements OnInit {
   }
 
   createOffer(): void {
+    this.isCreatingOffer = true;
     this.offer.code = 'OfferCode';
     this.offer.title = 'offer title is this';
     this.offer.description = 'a descriptive text blob';
     this.offer.iconTitle = 'title';
     this.offer.iconDescription = 'short desc';
     console.log(this.offer);
-    this.offerService.createOffer(this.offer);
+    this.offerService.createOffer(this.offer)
+      .pipe(finalize(() => { this.isCreatingOffer = false; }))
+      .subscribe(result => { 
+        console.log(result);
+            let count = result.offers.length;
+            if (count == 1) {
+              this.successMessage = '1 offer successfully created';
+            } else {
+              console.warn('Unexpected quantity of offers created. This component should only create a single offer at a time, but result returned ' + count);
+              this.successMessage = `${count} offers successfully created`;
+            }
+            
+            // clear the created offer 
+            this.offer = new Offer()
+        },
+        error => {
+          this.errorMessage = error.errors;
+        });
   }
 
   ngOnInit() {
+    this.offer = new Offer();
 
+    this.offerContentSubscription = this.createOfferService.offerContent$.subscribe(content => {
+      this.offer.content = content;
+    });
+
+    this.offerDisplayedItemsSubscription = this.createOfferService.offerDisplayedItems$.subscribe(items => {
+      this.offer.display = items;
+    });
   }
 
 }

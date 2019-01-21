@@ -36,8 +36,4 @@ export class OfferCatalogComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  addUnit() {
-    this.createOfferService.addUnit(251);
-  }
 }

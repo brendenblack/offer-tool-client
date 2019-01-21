@@ -1,4 +1,7 @@
-import { OfferContent, OfferDisplayItem, OfferDisplayOptions} from '.';
+import { OfferDisplayOptions } from "./offer-display-options.model";
+import { OfferDisplayItem } from "./offer-display-item.model";
+import { OfferContent } from "./offer-content.model";
+
 
 export class Offer {
 
@@ -18,7 +21,7 @@ export class Offer {
     maxQuantity = 1;
     startDate: Date = new Date();
     endDate: Date = new Date(new Date().setDate(this.startDate.getDate() + 3));
-    cooldownType = 0;
+    cooldownType;
     cooldown = 0;
     content = new OfferContent();
     display: OfferDisplayItem[] = [];

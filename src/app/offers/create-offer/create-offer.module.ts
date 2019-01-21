@@ -15,6 +15,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CatalogUnitListComponent } from './components/catalog-unit-list/catalog-unit-list.component';
+import { OfferWysiwygPageComponent } from './pages/offer-wysiwyg-page/offer-wysiwyg-page.component';
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import { CatalogUnitListComponent } from './components/catalog-unit-list/catalog
     TechSearchPipe,
     UnitFilterPipe,
     UnitSearchPipe,
-    CatalogUnitListComponent
+    CatalogUnitListComponent,
+    OfferWysiwygPageComponent
   ],
   exports: [
     OfferCreatePageComponent
