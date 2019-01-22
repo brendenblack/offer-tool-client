@@ -1,0 +1,10 @@
+<main class="bg-light">
+    <div class="row m-0 p-0 pt-3">
+        <div class="col-md-9 col-lg-8 col-xl-6">
+            <app-offers-list (selected)="onSelection($event)"></app-offers-list>
+        </div>
+        <div class="col-md-3 col-lg-4">
+            <app-clone-offers [offers]="selectedOffers" (clearSelection)="onClearSelection($event)" (clearAll)="onClearAll()"></app-clone-offers>
+        </div>
+    </div>
+</main>

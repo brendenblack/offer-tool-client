@@ -65,7 +65,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let offer of offers">
-            <td [ngClass]="{'activeOffer': offer.active}"><a [routerLink]="['/offers', offer.id ]">{{ offer.offerCode }}</a></td>
+            <td [ngClass]="{'activeOffer': offer.active}"><a [routerLink]="['/offers', offer.id ]">{{ offer.code }}</a></td>
             <td>{{ offer.title }}</td>
             <td class="text-right">{{ offer.cohortSize }}</td>
             <td class="text-right">{{ offer.uniquePurchased }}</td>
@@ -86,7 +86,7 @@
         <div class="col">
           <div class="row">
             <div class="col-sm-6 col-md-3">
-                <strong>{{ offer.offerCode }}</strong>
+                <strong>{{ offer.code }}</strong>
               </div>
               <div class="col">
                 {{ offer.title }}

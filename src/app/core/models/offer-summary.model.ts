@@ -1,5 +1,5 @@
 export class OfferSummary {
-    offerCode: string;
+    code: string;
     title: string;
     startTime: number;
     endTime: number;

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OffersPageComponent } from './offers-page.component';
+import { ClonePageComponent } from './clone-page.component';
 
 describe('OffersPageComponent', () => {
-  let component: OffersPageComponent;
-  let fixture: ComponentFixture<OffersPageComponent>;
+  let component: ClonePageComponent;
+  let fixture: ComponentFixture<ClonePageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OffersPageComponent ]
+      declarations: [ ClonePageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OffersPageComponent);
+    fixture = TestBed.createComponent(ClonePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { OfferSummary } from '../../core/models';
+import { OfferSummary } from '../../../core/models';
 
 @Component({
-  templateUrl: './offers-page.component.html',
-  styleUrls: ['./offers-page.component.css']
+  templateUrl: './clone-page.component.html',
+  styleUrls: ['./clone-page.component.css']
 })
-export class OffersPageComponent {
+export class ClonePageComponent {
 
   constructor() { }
 

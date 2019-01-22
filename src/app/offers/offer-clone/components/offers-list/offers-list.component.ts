@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { OfferService } from '../../../core/services';
-import { OfferSummary } from '../../../core/models';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { OfferService } from 'src/app/core/services';
+import { OfferSummary } from 'src/app/core/models';
 
 const equals = (one: NgbDateStruct, two: NgbDateStruct) =>
   one && two && two.year === one.year && two.month === one.month && two.day === one.day;

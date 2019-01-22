@@ -11,7 +11,7 @@ export class OfferService {
     constructor(private apiService: ApiService, private wcOffersApiService: WcProductApiService) {}
 
     getAllOffers(active: boolean = false): Observable<OfferSummary[]> {
-        return this.apiService.get(`/offers?active=${active}`).pipe(map(data => {
+        return this.wcOffersApiService.get(`/offers`).pipe(map(data => {
             return data.offers;
         }));
     }
@@ -66,9 +66,9 @@ export class OfferService {
         let command = new CreateOfferCommand();
         command.offers.push(offer);
         return this.wcOffersApiService.post(`/offers`, command);
-        // this.wcOffersApiService.post(`/offers`, command).subscribe(result => { 
+        // this.wcOffersApiService.post(`/offers`, command).subscribe(result => {
         //     // TODO
-        //     console.log(result); 
+        //     console.log(result);
         // },
         // error => {
         //     console.log(error);

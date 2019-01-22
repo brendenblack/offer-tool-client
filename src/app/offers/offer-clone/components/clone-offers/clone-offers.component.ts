@@ -1,8 +1,8 @@
 import { Component, Input, Output, EventEmitter, AfterViewChecked, ChangeDetectorRef, IterableDiffers, DoCheck } from '@angular/core';
-import { OfferSummary, OfferEntity} from '../../../core/models';
-import { OfferService, OfferCloneSkeleton } from '../../../core/services';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as squel from 'squel/';
+import { OfferService, OfferCloneSkeleton } from 'src/app/core/services';
+import { OfferSummary } from 'src/app/core/models';
 
 @Component({
   selector: 'app-clone-offers',
