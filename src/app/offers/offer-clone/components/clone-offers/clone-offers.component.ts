@@ -30,8 +30,15 @@ export class CloneOffersComponent implements DoCheck {
   ngDoCheck(): void {
     for (const offer of this.offers) {
       if (offer.newCode === undefined) {
-        // if no new code is yet set, set it to the current value + 2 (respecting the max limit of 20 characters)
-        offer.newCode = ((offer.offerCode.length >= 20) ? offer.offerCode.substr(0, 19) : offer.offerCode) + '2';
+        // TODO: check for month/year prefix, and increment as necessary
+        let lastChar = offer.code[offer.code.length - 1];
+        let num = parseInt(lastChar, 10);
+        if (isNaN(num)) {
+           // if no new code is yet set, set it to the current value + 2 (respecting the max limit of 20 characters)
+        offer.newCode = ((offer.code.length >= 20) ? offer.code.substr(0, 19) : offer.code) + '2';
+        } else {
+          offer.newCode = offer.code.substr(0, offer.code.length - 1) + (num + 1);
+        }
       }
     }
   }
@@ -46,8 +53,8 @@ export class CloneOffersComponent implements DoCheck {
     this.clearAll.emit();
   }
 
-  validateOfferCode(offer: CloneOffer): boolean {
-    if (offer.newCode === undefined || offer.newCode === '' || offer.newCode === offer.offerCode) {
+  validatecode(offer: CloneOffer): boolean {
+    if (offer.newCode === undefined || offer.newCode === '' || offer.newCode === offer.code) {
       return false;
     } else {
       return true;

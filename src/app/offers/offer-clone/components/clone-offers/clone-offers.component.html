@@ -9,7 +9,7 @@
     <table class="table table-sm table-borderless">
         <tbody>
             <tr *ngFor="let offer of offers">
-                <td class="align-middle"><span class="font-weight-bold">{{ offer.offerCode }}</span></td>
+                <td class="align-middle"><span class="font-weight-bold">{{ offer.code }}</span></td>
                 <td class="align-middle"><span class="text-muted">as</span></td>
                 <td><input type="text" class="form-control form-control-sm" maxlength="20" [(ngModel)]="offer.newCode" /></td>
                 <td><button class="btn btn-sm btn-danger"><i class="fas fa-ban"></i></button></td>
