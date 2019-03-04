@@ -1,0 +1,20 @@
+<div class="row m-0 px-1 py-2 border-left border-bottom border-right rounded-bottom bg-white" style="border-color: rgb(222, 226, 230);">
+  <div class="col">
+    <div class="input-group">
+      <div class="input-group-prepend" id="techSearchIcon">
+        <span class="input-group-text">
+          <i class="fas fa-search"></i>
+        </span>
+      </div>
+      <input class="form-control form-control-sm" [(ngModel)]="techSearchText" aria-describedby="techSearchIcon" />
+    </div>
+    
+  </div>
+</div>
+<div class="row no-gutters p-3 border-left border-bottom border-right rounded-bottom bg-white" style="border-color: rgb(222, 226, 230);">
+    <div class="col">
+      <div *ngFor="let t of tech | techSearch:techSearchText">
+          <app-catalog-tech-item [tech]="t"></app-catalog-tech-item>
+      </div>
+    </div>
+  </div>

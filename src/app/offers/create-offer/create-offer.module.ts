@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CatalogUnitListComponent } from './components/catalog-unit-list/catalog-unit-list.component';
 import { OfferWysiwygPageComponent } from './pages/offer-wysiwyg-page/offer-wysiwyg-page.component';
+import { CatalogTechListComponent } from './components/catalog-tech-list/catalog-tech-list.component';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import { OfferWysiwygPageComponent } from './pages/offer-wysiwyg-page/offer-wysi
     UnitFilterPipe,
     UnitSearchPipe,
     CatalogUnitListComponent,
-    OfferWysiwygPageComponent
+    OfferWysiwygPageComponent,
+    CatalogTechListComponent
   ],
   exports: [
     OfferCreatePageComponent

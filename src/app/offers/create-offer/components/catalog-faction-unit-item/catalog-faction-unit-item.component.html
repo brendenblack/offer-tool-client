@@ -17,16 +17,16 @@
       <div class="row">
         <div class="col-sm-4">Content:</div>
         <div class="col">
-          <button class="btn btn-link py-0 px-2" [disabled]="!canAddUnlock" (click)="addUnlock()" title='Add an unlock for {{unit.name}}'><i class="fas fa-lock-open"></i></button>
-          <button class="btn btn-link py-0 px-2" [disabled]="!canAddMaxBuildable" (click)="addMaxBuildable()" title='Add a maxbuildable for {{unit.name}}'><i class="fas fa-users"></i></button>
-          <button class="btn btn-link py-0 px-2" [disabled]="!canAddPrebuilt" (click)="addPrebuilt()" title='Add a prebuilt {{unit.name}}'><i class="fas fa-male"></i></button>
+          <button class="btn btn-primary py-0 px-2 mr-1" [disabled]="!canAddUnlock" (click)="addUnlock()" title='Add an unlock for {{unit.name}}'><i class="fas fa-lock-open"></i></button>
+          <button class="btn btn-primary py-0 px-2 mr-1" [disabled]="!canAddMaxBuildable" (click)="addMaxBuildable()" title='Add a maxbuildable for {{unit.name}}'><i class="fas fa-users"></i></button>
+          <button class="btn btn-primary py-0 px-2 mr-1" [disabled]="!canAddPrebuilt" (click)="addPrebuilt()" title='Add a prebuilt {{unit.name}}'><i class="fas fa-male"></i></button>
         </div>
       </div>
       <div class="row">
         <div class="col-sm-4">Display:</div>
         <div class="col">
-          <button class="btn btn-link py-0 px-2" [disabled]="!canDisplayUnlock" (click)="addDisplay(unlockItem)"><i class="fas fa-lock-open"></i></button>
-          <button class="btn btn-link py-0 px-2" [disabled]="!canDisplayMaxBuildable" (click)="addDisplay(maxBuildableItem)"><i class="fas fa-users"></i></button>
+          <button class="btn btn-primary py-0 px-2 mr-1" [disabled]="!canDisplayUnlock" (click)="addDisplay(unlockItem)"><i class="fas fa-lock-open"></i></button>
+          <button class="btn btn-primary py-0 px-2 mr-1" [disabled]="!canDisplayMaxBuildable" (click)="addDisplay(maxBuildableItem)"><i class="fas fa-users"></i></button>
         </div>
       </div>
     </div>

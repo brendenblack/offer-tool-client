@@ -8,9 +8,9 @@
 @media (min-width: 992px) {
     #sidebar {
         position: fixed;
-        top: 60px;
+        top: 49.875px;
         bottom: 0;
-        max-height: 100vh - 60px;
+        max-height: 100vh - 49.875px;
         overflow-y: auto;
     }
 }
