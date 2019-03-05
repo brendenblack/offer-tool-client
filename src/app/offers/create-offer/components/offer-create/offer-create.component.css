@@ -1,8 +1,6 @@
 
 h2 { font-size: 1rem;}
 
-table { font-size: .8rem; }
-
 /* .content-block { font-size: .75rem; } */
 
-.create-header { font-size: 2rem; font-weight: bold;}
+.create-heading { font-size: 1.2rem; font-weight: bold;}

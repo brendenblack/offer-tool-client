@@ -5,7 +5,6 @@ import { CreateOfferRoutingModule } from './create-offer-routing.module';
 import { OfferCreatePageComponent } from './pages/offer-create-page/offer-create-page.component';
 import { OfferCatalogComponent } from './components/offer-catalog/offer-catalog.component';
 import { OfferCreateComponent } from './components/offer-create/offer-create.component';
-import { CardUnitComponent } from './components/card-unit/card-unit.component';
 import { TechSearchPipe } from './components/offer-catalog/tech-search.pipe';
 import { UnitFilterPipe } from './components/offer-catalog/unit-filter.pipe';
 import { UnitSearchPipe } from './components/offer-catalog/unit-search.pipe';
@@ -17,6 +16,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CatalogUnitListComponent } from './components/catalog-unit-list/catalog-unit-list.component';
 import { OfferWysiwygPageComponent } from './pages/offer-wysiwyg-page/offer-wysiwyg-page.component';
 import { CatalogTechListComponent } from './components/catalog-tech-list/catalog-tech-list.component';
+import { CatalogUniqueUnitListComponent } from './components/catalog-unique-unit-list/catalog-unique-unit-list.component';
 
 @NgModule({
   imports: [
@@ -30,7 +30,6 @@ import { CatalogTechListComponent } from './components/catalog-tech-list/catalog
     OfferCreatePageComponent,
     OfferCatalogComponent,
     OfferCreateComponent,
-    CardUnitComponent,
     CatalogFactionUnitItemComponent,
     CatalogTechItemComponent,
     TechSearchPipe,
@@ -38,7 +37,8 @@ import { CatalogTechListComponent } from './components/catalog-tech-list/catalog
     UnitSearchPipe,
     CatalogUnitListComponent,
     OfferWysiwygPageComponent,
-    CatalogTechListComponent
+    CatalogTechListComponent,
+    CatalogUniqueUnitListComponent
   ],
   exports: [
     OfferCreatePageComponent
